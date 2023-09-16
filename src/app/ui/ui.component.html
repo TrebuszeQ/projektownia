@@ -1,0 +1,13 @@
+<div id="uiW" class="noMargin noPadding">
+    <div id="uiTopW" class="uiElem altColor l10">
+        <button id="menuButt" class="uiButt">
+            <fa-icon [icon]="faHome" (click)="menuAppear()"></fa-icon>
+        </button>
+        <button id="langButt" class="uiButt">
+            <fa-icon [icon]="faFlag" (click)="setGlobalLang()"></fa-icon>
+        </button>
+    </div>
+    <div id="uiLeftW" class="uiElem altColor l10">
+        <button *ngFor="let butt of butts; index as i"  type="button" class="leftMenuButt uiButt" id="leftMenuButt{{i}}" (click)="onClickRed(butt.url)">{{butt.name.toUpperCase()}}</button>
+    </div>
+</div>

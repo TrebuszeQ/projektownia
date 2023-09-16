@@ -1,0 +1,39 @@
+#sliderW {
+    display: grid;
+    grid-template-columns: repeat(3, 100vw);
+    grid-template-rows: 60vh;
+    align-items: end;
+    align-content: center;
+    position: relative;
+    margin-top: 7.5vh;
+    overflow: hidden;
+    background-color: black;
+    transform: translateX(0);
+}
+
+#slidButtW {
+    display: grid;
+    grid-template-columns: repeat(5, 20vw);
+    grid-template-rows: 7.5vh;
+    position: absolute;
+    background-color: black; 
+}
+
+.sliderImg {
+    width: 100%;
+    height: 100%;
+}
+
+.slidButt {
+    height: 100%;
+}
+
+#slidButtR {
+    grid-column: 1/2;
+    grid-row: 1;
+}
+
+#slidButtL {
+    grid-column: 5/6;
+    grid-row: 1;
+}

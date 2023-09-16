@@ -2,14 +2,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
+    "outDir": "./out-tsc/worker",
+    "lib": [
+      "es2018",
+      "webworker"
+    ],
     "types": [
-      "jasmine"
+      "node"
     ]
   },
   "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.worker.ts",
-    "src/**/*.d.ts"
+    "src/**/*.worker.ts"
   ]
 }

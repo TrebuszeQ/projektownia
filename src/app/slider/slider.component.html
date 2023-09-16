@@ -1,0 +1,11 @@
+<div id="sliderW" class="zeroPadding l9">
+    <img *ngFor="let slide of slides" [src]="slide.url" id="{{slide.cssId}}" class="{{slide.cssClass}}">
+</div>
+<div id="slidButtW" class="l8">
+    <button class="slidButt l9" id="slidButtL" (click)="callSliderMover(-100)">
+        <fa-icon [icon]="arrowL"></fa-icon>
+    </button>
+    <button class="slidButt l9" id="slidButtR" (click)="callSliderMover(+100)">
+        <fa-icon [icon]="arrowR"></fa-icon>
+    </button>
+</div>
