@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { SliderService } from './services/slider.service';
 // interfaces
 import { Slides } from './interfaces/slides';
-// rxjs
-import { Observable, of } from 'rxjs';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -25,26 +23,20 @@ export class SliderComponent implements OnInit {
 
   
   ngOnInit(): void {
-    // this.startSlider();
-    this.callWorkInit(true);
+    this.callWorkInit();
   }
 
 
   // calls slider mover
-  callSliderMover(val:number) {
-    this.sliderService.mvSlidW(val);
-  }
-
-
-  // calls service to auto start slider
-  startSlider() {
-    // this.sliderService.autoSlide(true);
+  callSliderMover() {
+    this.sliderService.slidOn.next(false);
+    this.sliderService.mvSlidW();
   }
 
   
   // calls service to spawn worker
-  callWorkInit(on:boolean) {
-    this.sliderService.spawnSliderWorker(on, 4000);
+  callWorkInit() {
+    this.sliderService.spawnSliderWorker();
   }
 };
 

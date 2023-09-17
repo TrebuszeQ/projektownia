@@ -1,22 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 // RxJS
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 // interfaces
 import { Slides } from '../interfaces/slides';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SliderService {
+export class SliderService implements OnInit{
 
   readonly slidClass: string = "sliderImg l8";
   slidWPos: number =  0;
+  slidAmount: number = -100;
+  slidSpeed: number = 3000;
+  animSpeed: number = 2000;
+  slidOn = new Subject<boolean>;
+  worker: any;
 
   readonly slides: Slides[] = [
     { name: "slide1", url: "/assets/images/interior1.jpeg", cssId: "slide1", cssClass: this.slidClass },
     { name: "slide2", url: "/assets/images/interior2.jpeg", cssId: "slide2", cssClass: this.slidClass },
     { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: this.slidClass },
   ];
+
+  ngOnInit(): void {
+    this.subscribeSlider()
+  }
 
 // serves slides array
   srvSlides(): Observable<Slides[]> {
@@ -53,11 +62,12 @@ export class SliderService {
     }
   }
 
-
+// here
   // Controls amount of slideX
   async validateSlidWPosVal(slidWPos: number): Promise<number> {
     if(this.slides.length > 0) {
       let slidWPosMin = this.slides.length * -100;
+      console.log(slidWPosMin);
       switch(slidWPos) {
         case slidWPosMin:
           return 0;
@@ -72,55 +82,61 @@ export class SliderService {
   }
 
 
+  subscribeSlider() {
+    this.slidOn.subscribe(on => { 
+      if(!on) this.worker.postMessage([false, this.slidSpeed]);
+    })
+  }
+
+
+
   // changes slider wrapper translate or returns void if slider position value is null or ""
-  async mvSlidW(val: number) { 
+  async mvSlidW() { 
     // console.log(this.slidWPos)
     const compPos: string | null = await this.getSlidWPos();
     if (compPos === null) {
       console.error("Slider wrapper translate value is not a string.");
-    } else {
-      let elem = await this.getSlidW();
-      this.slidWPos += val;
-      let slidWPos: number = await this.validateSlidWPosVal(this.slidWPos);
-      this.slidWPos = slidWPos;
-      elem!.animate(
-        [
-          {
-            transform: `translateX(${slidWPos}vw)`,
-            easing: "ease-out",
-          }
-        ],
-        {
-          fill: "forwards",
-          duration: 200,
-        });
+    } 
+    else if (compPos != null && this.slidOn) {
+      const elem = await this.getSlidW();
+      this.slidWPos += this.slidAmount;
+      const slidWPos: number = await this.validateSlidWPosVal(this.slidWPos);
+      console.log(slidWPos);
+      await this.animateSlide(slidWPos, elem!);
     } 
   }
 
-    // initiates worker
-    spawnSliderWorker(on:boolean, speed: number) {
-      if (typeof Worker !== "undefined") {
-        const worker = new Worker(new URL("src/app/slider/workers/slider.worker.ts",
-        import.meta.url));
-        worker.onmessage = ({ data}) => {
-          this.reactToMsg(data);
-        };
-        worker.postMessage([on, speed]);
-      } else {
-        console.error("Web workers are not supported in this environment. Slider won't be automatic.");
-      }
-    }
 
-    // takes actions depending on worker response
-    reactToMsg(on: boolean) {
-      switch(on) {
-        case true:
-          this.mvSlidW(-100);
-          break;
-        case false:
-          break;
-      }
+  // animates slide
+  async animateSlide(pos: number, elem: HTMLElement) {
+    elem!.animate(
+      [
+        {
+          transform: `translateX(${pos}vw)`,
+          easing: "ease-out",
+        }
+      ],
+      {
+        fill: "forwards",
+        duration: this.animSpeed,
+      });
+  }
+
+  // initiates worker
+  spawnSliderWorker() {
+    if (typeof Worker !== "undefined") {
+      const worker = new Worker(new URL("src/app/slider/workers/slider.worker.ts",
+      import.meta.url));
+      this.worker = worker;
+      worker.onmessage = () => {
+        this.mvSlidW();
+      };
+      worker.postMessage([this.slidOn, this.slidSpeed]);
+    } else {
+      console.error("Web workers are not supported in this environment. Slider won't be automatic.");
     }
+  
+  }
 
   // turns auto sliding on/off
   // async autoSlide(on: boolean) {
