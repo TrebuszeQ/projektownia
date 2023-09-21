@@ -19,24 +19,37 @@ export class SliderComponent implements OnInit {
   };
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
-  slides: Slides[] = []; 
+  public slides: Slides[] = []; 
 
   
   ngOnInit(): void {
-    this.callWorkInit();
+    this.callWorkerInit();
+    this.callServiceSubscription();
   }
 
 
   // calls slider mover
   callSliderMover() {
-    this.sliderService.slidOn.next(false);
+    this.callSliderStatus(false);
     this.sliderService.mvSlidW();
   }
 
   
   // calls service to spawn worker
-  callWorkInit() {
+  callWorkerInit() {
     this.sliderService.spawnSliderWorker();
+  }
+
+
+  // calls service to subscribe sliderOn status
+  callServiceSubscription() {
+    this.sliderService.subscribeSliderStatus();
+  }
+
+
+  // calls service to turn slider on/off
+  callSliderStatus(on: boolean) {
+    this.sliderService.changeSliderStatus(on);
   }
 };
 

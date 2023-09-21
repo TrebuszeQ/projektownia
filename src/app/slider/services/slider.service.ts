@@ -7,15 +7,15 @@ import { Slides } from '../interfaces/slides';
 @Injectable({
   providedIn: 'root'
 })
-export class SliderService implements OnInit{
+export class SliderService {
 
   readonly slidClass: string = "sliderImg l8";
-  slidWPos: number =  0;
-  slidAmount: number = -100;
-  slidSpeed: number = 3000;
-  animSpeed: number = 2000;
-  slidOn = new Subject<boolean>;
-  worker: any;
+  private slidWPos: number =  0;
+  readonly slidAmount: number = -100;
+  private slidSpeed: number = 3000;
+  private animSpeed: number = 2000;
+  public slidOn = new Subject<boolean>();
+  private worker: any;
 
   readonly slides: Slides[] = [
     { name: "slide1", url: "/assets/images/interior1.jpeg", cssId: "slide1", cssClass: this.slidClass },
@@ -23,9 +23,6 @@ export class SliderService implements OnInit{
     { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: this.slidClass },
   ];
 
-  ngOnInit(): void {
-    this.subscribeSlider()
-  }
 
 // serves slides array
   srvSlides(): Observable<Slides[]> {
@@ -62,17 +59,15 @@ export class SliderService implements OnInit{
     }
   }
 
-// here
+
   // Controls amount of slideX
   async validateSlidWPosVal(slidWPos: number): Promise<number> {
     if(this.slides.length > 0) {
       let slidWPosMin = this.slides.length * -100;
-      console.log(slidWPosMin);
+      let truthiness: boolean = false;
       switch(slidWPos) {
         case slidWPosMin:
           return 0;
-        case 0:
-          return slidWPosMin;
         default:
           return slidWPos;
       }
@@ -82,12 +77,20 @@ export class SliderService implements OnInit{
   }
 
 
-  subscribeSlider() {
-    this.slidOn.subscribe(on => { 
-      if(!on) this.worker.postMessage([false, this.slidSpeed]);
-    })
+  // subscribes this.slidOn to react to changes
+  subscribeSliderStatus() {
+    this.slidOn.subscribe({ 
+      next: (on: boolean) => {
+        this.worker.postMessage([on, this.slidSpeed]);
+      }
+    });
   }
 
+
+  // affects this.slidOn subject to turn on/off auto sliding
+  changeSliderStatus(on: boolean) {
+    this.slidOn.next(on);
+  }
 
 
   // changes slider wrapper translate or returns void if slider position value is null or ""
@@ -99,10 +102,10 @@ export class SliderService implements OnInit{
     } 
     else if (compPos != null && this.slidOn) {
       const elem = await this.getSlidW();
+      this.slidWPos;
       this.slidWPos += this.slidAmount;
-      const slidWPos: number = await this.validateSlidWPosVal(this.slidWPos);
-      console.log(slidWPos);
-      await this.animateSlide(slidWPos, elem!);
+      this.slidWPos = await this.validateSlidWPosVal(this.slidWPos);
+      await this.animateSlide(this.slidWPos, elem!);
     } 
   }
 
@@ -122,6 +125,7 @@ export class SliderService implements OnInit{
       });
   }
 
+
   // initiates worker
   spawnSliderWorker() {
     if (typeof Worker !== "undefined") {
@@ -137,22 +141,5 @@ export class SliderService implements OnInit{
     }
   
   }
-
-  // turns auto sliding on/off
-  // async autoSlide(on: boolean) {
-  //   // console.log("called");
-  //   let interv = () => setInterval( 
-  //     () => {
-  //       this.mvSlidW(-100);
-  //   }, 3000);
-  //   if (on) interv();
-  //   else if (!on) {
-  //     console.log("cleared");
-  //     clearInterval(interv());
-  //   }
-  // }
-
-
-  // initiates slider worker
   
 }
