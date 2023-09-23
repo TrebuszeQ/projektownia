@@ -5,7 +5,7 @@ import { SliderService } from './services/slider.service';
 import { Slides } from './interfaces/slides';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-slider',
@@ -17,8 +17,10 @@ export class SliderComponent implements OnInit {
     this.sliderService.srvSlides().subscribe(
     (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
+  rangeV: number = 3000;
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
+  readonly play = faCaretSquareRight;
   public slides: Slides[] = []; 
 
   
@@ -50,6 +52,18 @@ export class SliderComponent implements OnInit {
   // calls service to turn slider on/off
   callSliderStatus(on: boolean) {
     this.sliderService.changeSliderStatus(on);
+  }
+
+
+  // updates local speed
+  updateLocalSpeed(value: number) {
+    this.rangeV = value;
+  }
+
+  // calls service to change slider speed
+  callSliderSpeed(value: number) {
+    console.log(value);
+    
   }
 };
 

@@ -15,6 +15,9 @@
     display: grid;
     grid-template-columns: repeat(5, 20vw);
     grid-template-rows: 7.5vh;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
     position: absolute;
     background-color: black; 
 }
@@ -26,6 +29,7 @@
 
 .slidButt {
     height: 100%;
+    width: 100%;
 }
 
 #slidButtR {
@@ -38,8 +42,17 @@
     grid-row: 1;
 }
 
-#speedSlider {
-    appearance: none;
-    background-color: transparent;
+#onButton {
+    grid-column: 2/3
+}
 
+#speedSlider {
+    grid-column: 4/5;
+    appearance: auto;
+    width: 80%;
+    opacity: 30%;
+}
+
+#speedSlider:hover {
+    opacity: 100%;
 }

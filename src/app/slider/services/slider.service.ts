@@ -64,7 +64,6 @@ export class SliderService {
   async validateSlidWPosVal(slidWPos: number): Promise<number> {
     if(this.slides.length > 0) {
       let slidWPosMin = this.slides.length * -100;
-      let truthiness: boolean = false;
       switch(slidWPos) {
         case slidWPosMin:
           return 0;
@@ -136,7 +135,8 @@ export class SliderService {
         this.mvSlidW();
       };
       worker.postMessage([this.slidOn, this.slidSpeed]);
-    } else {
+    } 
+    else {
       console.error("Web workers are not supported in this environment. Slider won't be automatic.");
     }
   

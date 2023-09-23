@@ -5,7 +5,17 @@
     <button class="slidButt l9" id="slidButtL" (click)="callSliderMover()">
         <fa-icon [icon]="arrowL"></fa-icon>
     </button>
-    <input type="range" min="3000" max="9000" value="3000" class="slidButt l9" id="speedSlider">
+    <button class="slidButt l9" id="onButton">
+        <fa-icon [icon]="play"></fa-icon>
+    </button>
+    <input type="range" min="3000" max="9000" value="{{rangeV}}" class="slidButt l9" id="speedSlider" (input)="callSliderSpeed(rangeV)">
+    <datalist id="markers">
+        <option value="0"></option>
+        <option value="25"></option>
+        <option value="50"></option>
+        <option value="75"></option>
+        <option value="100"></option>
+      </datalist>
     <button class="slidButt l9" id="slidButtR" (click)="callSliderMover()">
         <fa-icon [icon]="arrowR"></fa-icon>
     </button>
