@@ -17,11 +17,12 @@ export class SliderComponent implements OnInit {
     this.sliderService.srvSlides().subscribe(
     (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
-  rangeV: number = 3000;
+  public rangeV: number = 3000;
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
   public slides: Slides[] = []; 
+  public sliderButtOn: boolean = true;
 
   
   ngOnInit(): void {
@@ -59,11 +60,11 @@ export class SliderComponent implements OnInit {
   updateLocalSpeed(value: number) {
     this.rangeV = value;
   }
+  
 
   // calls service to change slider speed
-  callSliderSpeed(value: number) {
-    console.log(value);
-    
+  callSliderSpeed() {
+    console.log();
   }
 };
 

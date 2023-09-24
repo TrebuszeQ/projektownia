@@ -46,13 +46,48 @@
     grid-column: 2/3
 }
 
-#speedSlider {
+#sliderButton {
     grid-column: 4/5;
-    appearance: auto;
-    width: 80%;
-    opacity: 30%;
 }
 
-#speedSlider:hover {
-    opacity: 100%;
+#sliderButton:hover {
+    display: none;
 }
+
+#speedSlider {
+    grid-column: 4/5;
+    position: absolute;
+    appearance: auto;
+    width: 80%;
+    height: 100%;
+}
+
+speedSlider:hover {
+    background-color: transparent;
+}
+
+datalist {
+    grid-column: 4/5;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    box-sizing: border-box;
+    padding: 0 10% 0 10%;
+    writing-mode: vertical-lr;
+    width: 80%;
+    height: 80%;
+}
+
+datalist:hover {
+    background-color: transparent;
+}
+
+datalist > option {
+    color: white;
+}
+
