@@ -46,29 +46,31 @@
     grid-column: 2/3
 }
 
-#sliderButton {
+#speedButton {
     grid-column: 4/5;
 }
 
-#sliderButton:hover {
-    display: none;
-}
-
-#speedSlider {
+.speedSlider {
     grid-column: 4/5;
     position: absolute;
-    appearance: auto;
     width: 80%;
-    height: 100%;
-}
-
-speedSlider:hover {
+    transition: 0.15s;
+    color: rgb(36, 40, 61);
     background-color: transparent;
 }
 
+.speedSlider:hover {
+    color: aquamarine;
+    background-color: black;
+}
+
+#speedSlider {
+    appearance: auto;
+    height: 100%;
+}
+
+
 datalist {
-    grid-column: 4/5;
-    position: absolute;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -79,13 +81,10 @@ datalist {
     box-sizing: border-box;
     padding: 0 10% 0 10%;
     writing-mode: vertical-lr;
-    width: 80%;
     height: 80%;
+    
 }
 
-datalist:hover {
-    background-color: transparent;
-}
 
 datalist > option {
     color: white;

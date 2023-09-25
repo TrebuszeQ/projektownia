@@ -22,7 +22,6 @@ export class SliderComponent implements OnInit {
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
   public slides: Slides[] = []; 
-  public sliderButtOn: boolean = true;
 
   
   ngOnInit(): void {
@@ -56,15 +55,49 @@ export class SliderComponent implements OnInit {
   }
 
 
+  // hides or shows speed button 
+  controlSpeedButton(on: boolean) {
+    const button = document.getElementById("speedButton");
+    if(!on) {
+      button!.animate(
+        [
+          {
+            visibility: "hidden",
+            easing: "ease"
+          }
+        ],
+        {
+          fill: "forwards",
+          duration: 1,
+        });
+    }
+    else {
+      button!.animate(
+        [
+          {
+            visibility: "visible",
+            easing: "ease"
+          }
+        ],
+        {
+          fill: "forwards",
+          duration: 1500,
+        });
+    }
+    
+  }
+
+
   // updates local speed
-  updateLocalSpeed(value: number) {
-    this.rangeV = value;
+  updateLocalSpeed(event: Event) {
+    const element = event.target;
+    const element2 = element as HTMLInputElement;
   }
   
 
   // calls service to change slider speed
   callSliderSpeed() {
-    console.log();
+   
   }
 };
 

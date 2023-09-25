@@ -1,19 +1,20 @@
-<div id="sliderW" class="zeroPadding l9">
+<div id="sliderW" class="relativeItem borderBox zeroPadding l9">
     <img *ngFor="let slide of slides" [src]="slide.url" id="{{slide.cssId}}" class="{{slide.cssClass}}">
 </div>
-<div id="slidButtW" class="l8">
-    <button class="slidButt l9" id="slidButtL" (click)="callSliderMover()">
+<div id="slidButtW" class="relativeItem borderBox l8">
+    <button class="relativeItem borderBox slidButt l9" id="slidButtL" (click)="callSliderMover()">
         <fa-icon [icon]="arrowL"></fa-icon>
     </button>
-    <button class="slidButt l9" id="onButton">
+    <button class="relativeItem borderBox slidButt l9" id="onButton">
         <fa-icon [icon]="play"></fa-icon>
     </button>
-    <button class="slidButt l9" id="sliderButton">
+    <button class="relativeItem borderBox slidButt l9" id="speedButton" (mouseenter)="controlSpeedButton(false)">
         <p>speed</p>
     </button>
-    <input type="range" min="3000" max="9000" value="{{rangeV}}" list="markers" class="slidButt l8" id="speedSlider" 
-    (input)="callSliderSpeed()">
-    <datalist id="markers" class="slidButt l8">
+    <input type="range" min="3000" max="9000" value="3000" step="1500" list="markers" class="aboluteItem borderBox speedSlider l8" id="speedSlider" 
+    (input)="updateLocalSpeed($event)"
+    (mouseleave)="controlSpeedButton(true)">
+    <datalist id="markers" class="aboluteItem borderBox speedSlider l7">
         <option value="3000"></option>
         <option value="4500"></option>
         <option value="6000"></option>

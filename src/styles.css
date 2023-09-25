@@ -38,6 +38,18 @@ body {
     padding: 0;
 }
 
+.relativeItem {
+    position: relative;
+}
+
+.absoluteItem {
+    position: absolute;
+}
+
+.borderBox {
+    box-sizing: border-box;
+}
+
 .uiButt, .slidButt {
     display: flex;
     justify-content: center;
