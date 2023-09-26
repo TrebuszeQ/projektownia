@@ -1,7 +1,9 @@
 /// <reference lib="webworker" />
-let speed: number = 3000;
+let speed: number = 4500;
 let renewSpeed: number = 9000 + speed;
 let cleared: boolean = false;
+let interval2Instance: boolean = false;
+let intervalRenewInstance: boolean = false;
 
 addEventListener('message', ({ data }) => {
   // const response = `worker response to ${data}`;
@@ -10,14 +12,41 @@ addEventListener('message', ({ data }) => {
   speed = data[1];
 });
 
+let interval2 = null;
+let intervalRenew = null;
 
-let interval2 = setInterval(intervalHandlerSlide, speed);
-let intervalRenew = setInterval(intervalHandlerRenew, renewSpeed);
+
+// controls if there is any other instance of interval and clears it
+function interval2InstanceController()
+{
+  if(interval2Instance) 
+  {
+    clearInterval(interval2!);
+    interval2Instance = false;
+  }
+  interval2Instance = true;
+  interval2 = setInterval(intervalHandlerSlide, speed);
+}
+
+
+// controls if there is any other instance of interval and clears it
+function intervalRenewInstanceController()
+{
+  
+  if(intervalRenewInstance) 
+  {
+    clearInterval(intervalRenew!);
+    interval2Instance = false;
+  }
+  // console.log("renewed");
+  intervalRenewInstance = true;
+  intervalRenew = setInterval(intervalHandlerRenew, renewSpeed);
+}
 
 
 // sends message to service
-function sendMessage(on: Boolean) {
-  console.log("lol");
+function sendMessage(on: boolean) {
+  // console.log(speed);
   postMessage(on);
 }
 
@@ -31,9 +60,12 @@ function intervalHandlerSlide() {
 
 // renews intervalHandler for renewing
 function intervalHandlerRenew() {
+  // console.log("tick");
   if(cleared) {
     // console.log("Slider renewed");
-    interval2 = setInterval(intervalHandlerSlide, speed);
+    cleared = false;
+    intervalRenewInstanceController();
+    interval2InstanceController();
   }
 }
 
@@ -43,13 +75,14 @@ function autoSlide(on: boolean) {
   switch(on) {
     case false:
       // console.log("cleared");
-      clearInterval(interval2);
+      clearInterval(interval2!);
       cleared = true;
       sendMessage(false);
       break;
 
     case true:
-      interval2 = setInterval(intervalHandlerSlide, speed);
+      interval2InstanceController();
+      intervalRenewInstanceController();
       break;
   }
 }

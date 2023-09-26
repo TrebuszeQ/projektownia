@@ -12,7 +12,7 @@ export class SliderService {
   static readonly slidClass: string = "sliderImg l8";
   private slidWPos: number =  0;
   readonly slidAmount: number = -100;
-  private slidSpeed: number = 3000;
+  private slidSpeed: number = 4500;
   private animSpeed: number = 2000;
   public slidSubject = new Subject<boolean>();
   private slidOn: boolean = true;
@@ -93,17 +93,17 @@ export class SliderService {
 
   // changes slider wrapper translate or returns void if slider position value is null or ""
   private mvSlidW() { 
-    // console.log(this.slidWPos)
     const compPos: string | null = this.getSlidWPos();
     if (compPos === null) {
       console.error("Slider wrapper translate value is not a string.");
     } 
-    else if (compPos != null && this.slidOn) {
+    else if (compPos != null) {
       const elem = this.getSlidW();
       let value = this.slidWPos + this.slidAmount;
       this.slidWPos = value;
       value = this.validateSlidWPosVal();
       this.slidWPos = value;
+      console.log(this.slidWPos);
       this.animateSlide(value, elem!);
     } 
   }
