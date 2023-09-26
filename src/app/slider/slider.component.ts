@@ -14,10 +14,9 @@ import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-ic
 })
 export class SliderComponent implements OnInit {
   constructor(private sliderService: SliderService) {
-    this.sliderService.srvSlides().subscribe(
+    SliderService.srvSlides().subscribe(
     (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
-  public rangeV: number = 3000;
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
@@ -33,7 +32,6 @@ export class SliderComponent implements OnInit {
   // calls slider mover
   callSliderMover() {
     this.callSliderStatus(false);
-    this.sliderService.mvSlidW();
   }
 
   
@@ -92,12 +90,13 @@ export class SliderComponent implements OnInit {
   updateLocalSpeed(event: Event) {
     const element = event.target;
     const element2 = element as HTMLInputElement;
+    this.callSliderSpeed(element2.value);
   }
   
 
-  // calls service to change slider speed
-  callSliderSpeed() {
-   
+  // calls service to change sliding speed
+  callSliderSpeed(value: string) {
+    this.sliderService.changeSliderSpeed(value);
   }
 };
 

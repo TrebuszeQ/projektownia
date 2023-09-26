@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
 let speed: number = 3000;
+let renewSpeed: number = 9000 + speed;
 let cleared: boolean = false;
 
 addEventListener('message', ({ data }) => {
@@ -11,15 +12,24 @@ addEventListener('message', ({ data }) => {
 
 
 let interval2 = setInterval(intervalHandlerSlide, speed);
-let intervalRenew = setInterval(intervalHandlerRenew, 9000);
+let intervalRenew = setInterval(intervalHandlerRenew, renewSpeed);
+
+
+// sends message to service
+function sendMessage(on: Boolean) {
+  console.log("lol");
+  postMessage(on);
+}
+
 
 // posts message to slider service
 function intervalHandlerSlide() {
   cleared = false;
-  postMessage(true);
+  sendMessage(true);
 }
 
 
+// renews intervalHandler for renewing
 function intervalHandlerRenew() {
   if(cleared) {
     // console.log("Slider renewed");
@@ -35,7 +45,7 @@ function autoSlide(on: boolean) {
       // console.log("cleared");
       clearInterval(interval2);
       cleared = true;
-      postMessage(false);
+      sendMessage(false);
       break;
 
     case true:
