@@ -17,7 +17,7 @@ export class SliderService {
   public slidSubject = new Subject<boolean>();
   private slidOn: boolean = true;
   private worker: any;
-
+// todo slider service doesnt work well when speed is changed
   static slides: Slides[] = [
     { name: "slide1", url: "/assets/images/interior1.jpeg", cssId: "slide1", cssClass: SliderService.slidClass },
     { name: "slide2", url: "/assets/images/interior2.jpeg", cssId: "slide2", cssClass: SliderService.slidClass },

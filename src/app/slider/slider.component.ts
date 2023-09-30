@@ -9,6 +9,7 @@ import { LangEntry } from '../lang/Interfaces/lang-entry';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
+import { BaseComponent } from '../base/base.component';
 
 
 @Component({
@@ -16,47 +17,27 @@ import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-ic
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css']
 })
-export class SliderComponent implements OnInit {
-  constructor(private sliderService: SliderService, private langService: LangService) {
+export class SliderComponent 
+extends BaseComponent 
+implements OnInit 
+{
+  constructor(
+    private sliderService: SliderService, langService: LangService) 
+  {
+    super(langService);
     SliderService.srvSlides().subscribe(
-    (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
-    
-    langService.langSub.subscribe( {
-      next: (lang: string) => { 
-        if(this.lang != lang) {
-          this.setLangArr(lang);
-          this.lang = lang;
-        };
-      }
-    });
-
-    const langEntry = this.langService.fetchLangEntry("slider");
-    if(langEntry != null) this.langEntry = langEntry;
-    
+      (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
+  
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
   public slides: Slides[] = []; 
-  private lang = "pl" || "en";
-  private readonly langEntry?: LangEntry | null = null;
-  public langArr?: string[] | null = null;
-  
 
   ngOnInit(): void {
     this.setLangArr(this.lang);
     this.callWorkerInit();
     this.callServiceSubscription();
-  }
-
-
-  // fetches lang entry from lang service
-  private setLangArr(lang: string) {
-    if(lang = "pl") this.langArr = this.langEntry!.contentPl;
-    else if(lang = "en") this.langArr = this.langEntry!.contentEn;
-    console.log(lang);
-    console.log(this.langEntry);
-    console.log(this.langArr);
   }
 
 

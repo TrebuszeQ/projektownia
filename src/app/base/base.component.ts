@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 // types, interfaces
-import { LangEntry } from './lang/Interfaces/lang-entry';
+import { LangEntry } from '../lang/Interfaces/lang-entry';
 // services
-import { LangService } from './lang/lang.service';
+import { LangService } from '../lang/lang.service';
+
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-base',
+  templateUrl: './base.component.html',
+  styleUrls: []
 })
-export class AppComponent {
-  title = 'projektownia';
-  private lang = "pl" || "en";
-  private readonly langEntry?: LangEntry | null = null;
+export class BaseComponent {
+  protected lang = "pl" || "en";
+  protected readonly langEntry?: LangEntry | null = null;
   public langArr?: string[] | null = null;
   public Lol = "";
-  constructor(private langService: LangService) {
+  constructor(protected langService: LangService) {
     langService.langSub.subscribe( {
       next: (lang: string) => { 
         if(this.lang != lang) {
@@ -31,7 +31,7 @@ export class AppComponent {
     if(langEntry != null) this.langEntry = langEntry;
   }
 
-  private setLangArr(lang: string) {
+  protected setLangArr(lang: string) {
     const longArrPl: string[] = this.langEntry!.contentPl;
     const longArrEn: string[] = this.langEntry!.contentEn;
 
@@ -41,6 +41,4 @@ export class AppComponent {
     // console.log(this.langEntry);
     // console.log(this.langArr);
   }
-
-  
 }
