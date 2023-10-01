@@ -10,13 +10,18 @@ import { LangEntry } from './Interfaces/lang-entry';
   providedIn: 'root'
 })
 export class LangService {
-  lang: "pl" | "en" = "pl"; 
-  public langSub: Subject<string> = new Subject<string>()
+  public static lang: "pl" | "en" = "pl"; 
+  public static langSub: Subject<string> = new Subject<string>()
   static langArr: LangArray = [
     {
-      compName: "ui",
+      compName: "base",
       contentPl: [],
-      contentEn: []
+      contentEn: [],
+    },
+    {
+      compName: "ui",
+      contentPl: ["przycisk1", "przycisk2", "przycisk3", "przycisk4", "przycisk5", "przycisk6", "przycisk7", "przycisk8"],
+      contentEn: ["button1", "button2", "button3", "button4", "button5", "button6", "button7", "button8"],
     },
     {
       compName: "slider",
@@ -27,15 +32,16 @@ export class LangService {
 
 
   constructor() { 
-    this.setLang(this.lang)
+    LangService.setLang(LangService.lang)
   }
 
-  setLang(lang: string) {
-    this.langSub.next(lang);
+  
+  public static setLang(lang: string) {
+    LangService.langSub.next(lang);
     console.log(`Language set to ${lang}.`)
   }
 
-  public fetchLangEntry(compName: string): LangEntry | null {
+  public static fetchLangEntry(compName: string): LangEntry | null {
     const langArrInstance = LangService.langArr;
     for(let entry of langArrInstance)
     {

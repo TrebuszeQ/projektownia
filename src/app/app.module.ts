@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { UiComponent } from './ui/ui.component';
 import { SliderComponent } from './slider/slider.component';
 import { HomeComponent } from './home/home.component';
-import { BaseComponent } from './base/base.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +17,6 @@ import { BaseComponent } from './base/base.component';
     UiComponent,
     SliderComponent,
     HomeComponent,
-    BaseComponent
   ],
   imports: [
     BrowserModule,

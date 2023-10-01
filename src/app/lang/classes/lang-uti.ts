@@ -1,34 +1,24 @@
-import { Component } from '@angular/core';
 // types, interfaces
-import { LangEntry } from '../lang/Interfaces/lang-entry';
+import { LangEntry } from '../Interfaces/lang-entry';
 // services
-import { LangService } from '../lang/lang.service';
+import { LangService } from '../lang.service';
 
-
-@Component({
-  selector: 'app-base',
-  templateUrl: './base.component.html',
-  styleUrls: []
-})
-export class BaseComponent {
+export class LangUtilities {
+  
   protected lang = "pl" || "en";
   protected readonly langEntry?: LangEntry | null = null;
   public langArr?: string[] | null = null;
-  public Lol = "";
-  constructor(protected langService: LangService) {
-    langService.langSub.subscribe( {
+  constructor(ComponentName: string) {
+    LangService.langSub.subscribe( {
       next: (lang: string) => { 
         if(this.lang != lang) {
-          this.setLangArr(lang);
           this.lang = lang;
         };
       }
     });
-    
-    langService = this.langService;
-
-    const langEntry = this.langService.fetchLangEntry("slider");
+    const langEntry = LangService.fetchLangEntry(ComponentName);
     if(langEntry != null) this.langEntry = langEntry;
+    console.log(langEntry);
   }
 
   protected setLangArr(lang: string) {

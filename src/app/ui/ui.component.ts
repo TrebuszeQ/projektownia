@@ -9,6 +9,7 @@ import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';;
 
 // services
 import { LangService } from '../lang/lang.service';
+import { LangUtilities } from '../lang/classes/lang-uti';
 
 @Component({
   selector: 'app-ui',
@@ -16,12 +17,14 @@ import { LangService } from '../lang/lang.service';
   styleUrls: ['./ui.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UiComponent implements OnInit {
+export class UiComponent extends LangUtilities implements OnInit {
   faHome = faHome
   faFlag = faFlag
-  menuAppeared: boolean = true
-  lang: string = "pl"
-  
+  menuAppeared: boolean = true;
+  constructor() {
+    super("ui");
+  }
+
   butts: Butts[] = [
     { name: "placeholder1", url: "", cssId: null, cssClass: null },
     { name: "placeholder2", url: "", cssId: null, cssClass: null },
@@ -33,10 +36,10 @@ export class UiComponent implements OnInit {
     { name: "placeholder8", url: "", cssId: null, cssClass: null },
   ]
 
-  constructor(private langService: LangService) {}
 
   ngOnInit(): void {
-    this.setLocalLang()
+    this.setLangArr(this.lang);
+    // this.setLocalLang();
   } 
 
   
@@ -87,40 +90,40 @@ export class UiComponent implements OnInit {
     else if(this.lang == "en") {
       this.lang = "pl"
     }
-    this.langService.setLang(this.lang)
-    this.setLocalLang()
+    LangService.setLang(this.lang)
+    // this.setLocalLang()
     
   }
 
-  async setLocalLang() {
-    await this.setButtsLang()
-  }
+  // async setLocalLang() {
+  //   await this.setButtsLang()
+  // }
 
-  async setButtsLang() {
-    if (this.lang == "pl") {
-      this.butts = [
-        { name: "Polish1", url: "", cssId: null, cssClass: null },
-        { name: "Polish2", url: "", cssId: null, cssClass: null },
-        { name: "Polish3", url: "", cssId: null, cssClass: null },
-        { name: "Polish4", url: "", cssId: null, cssClass: null },
-        { name: "Polish5", url: "", cssId: null, cssClass: null },
-        { name: "Polish6", url: "", cssId: null, cssClass: null },
-        { name: "Polish7", url: "", cssId: null, cssClass: null },
-        { name: "Polish8", url: "", cssId: null, cssClass: null },
-      ]
-    }
-    else if (this.lang == "en") {
-      this.butts = [
-        { name: "English1", url: "", cssId: null, cssClass: null },
-        { name: "English2", url: "", cssId: null, cssClass: null },
-        { name: "English3", url: "", cssId: null, cssClass: null },
-        { name: "English4", url: "", cssId: null, cssClass: null },
-        { name: "English5", url: "", cssId: null, cssClass: null },
-        { name: "English6", url: "", cssId: null, cssClass: null },
-        { name: "English7", url: "", cssId: null, cssClass: null },
-        { name: "English8", url: "", cssId: null, cssClass: null },
-      ]
-    }
-  }
+  // async setButtsLang() {
+  //   if (this.lang == "pl") {
+  //     this.butts = [
+  //       { name: "Polish1", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish2", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish3", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish4", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish5", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish6", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish7", url: "", cssId: null, cssClass: null },
+  //       { name: "Polish8", url: "", cssId: null, cssClass: null },
+  //     ]
+  //   }
+  //   else if (this.lang == "en") {
+  //     this.butts = [
+  //       { name: "English1", url: "", cssId: null, cssClass: null },
+  //       { name: "English2", url: "", cssId: null, cssClass: null },
+  //       { name: "English3", url: "", cssId: null, cssClass: null },
+  //       { name: "English4", url: "", cssId: null, cssClass: null },
+  //       { name: "English5", url: "", cssId: null, cssClass: null },
+  //       { name: "English6", url: "", cssId: null, cssClass: null },
+  //       { name: "English7", url: "", cssId: null, cssClass: null },
+  //       { name: "English8", url: "", cssId: null, cssClass: null },
+  //     ]
+  //   }
+  // }
 }
 

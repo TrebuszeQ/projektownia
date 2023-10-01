@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 // services
 import { SliderService } from './services/slider.service';
-import { LangService } from '../lang/lang.service';
 // interfaces
 import { Slides } from './interfaces/slides';
-import { LangEntry } from '../lang/Interfaces/lang-entry';
 
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
-import { BaseComponent } from '../base/base.component';
+import { LangUtilities } from '../lang/classes/lang-uti';
 
 
 @Component({
@@ -18,21 +16,21 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./slider.component.css']
 })
 export class SliderComponent 
-extends BaseComponent 
+extends LangUtilities 
 implements OnInit 
 {
-  constructor(
-    private sliderService: SliderService, langService: LangService) 
-  {
-    super(langService);
-    SliderService.srvSlides().subscribe(
-      (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
-  };
   
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
   public slides: Slides[] = []; 
+
+  constructor(private sliderService: SliderService) 
+  {
+    super("slider");
+    SliderService.srvSlides().subscribe(
+      (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
+  };
 
   ngOnInit(): void {
     this.setLangArr(this.lang);
