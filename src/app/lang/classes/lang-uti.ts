@@ -26,7 +26,7 @@ export class LangUtilities {
     if(this.lang == "pl") this.langArr = this.langEntry!.contentPl;
     else if(this.lang == "en") this.langArr = this.langEntry!.contentEn;
     // console.log(lang);
-    console.log(this.langEntry);
+    // console.log(this.langEntry);
     // console.log(this.langArr);
   }
 }

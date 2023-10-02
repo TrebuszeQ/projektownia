@@ -1,8 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 // RxJS
 import { Observable, Subject } from 'rxjs';
-// interfaces
+// interfaces, types
 import { Slides } from '../interfaces/slides';
+import { SliderMsg } from '../types/slider-msg';
 
 @Injectable({
   providedIn: 'root'
@@ -69,17 +70,19 @@ export class SliderService {
   }
 
   // posts message to the worker 
-  private messageWorker(on: boolean) {
-    this.worker.postMessage([on, this.slidSpeed]);
+  public messageWorker(msg: SliderMsg) {
+    if(msg == "speed") this.worker.postMessage([msg, this.slidSpeed]);
+    else this.worker.postMessage(msg);
+    
   }
 
 
   // subscribes this.slidSubject to react to changes
   public subscribeSliderStatus() {
     this.slidSubject.subscribe({ 
-      next: (on: boolean) => {
+      next: (on: boolean) => { 
         this.slidOn = on;
-        this.messageWorker(this.slidOn);
+        if(!on) this.messageWorker("off");
       }
     });
   }
@@ -103,7 +106,7 @@ export class SliderService {
       this.slidWPos = value;
       value = this.validateSlidWPosVal();
       this.slidWPos = value;
-      console.log(this.slidWPos);
+      // console.log(this.slidWPos);
       this.animateSlide(value, elem!);
     } 
   }
@@ -128,13 +131,12 @@ export class SliderService {
   // initiates worker
   public spawnSliderWorker() {
     if (typeof Worker !== "undefined") {
-      const worker = new Worker(new URL("src/app/slider/workers/slider.worker.ts",
+      const worker = new Worker(new URL("src/app/slider/workers/slider.worker2.ts",
       import.meta.url));
       this.worker = worker;
       worker.onmessage = () => {
         this.mvSlidW();
       };
-      this.messageWorker(this.slidOn);
     } 
     else {
       console.error("Web workers are not supported in this environment. Slider won't be automatic.");
@@ -144,9 +146,9 @@ export class SliderService {
   
 
   // casts string and modifies slider speed
-  changeSliderSpeed(value: string) {
+  public changeSliderSpeed(value: string) {
     let speed = parseInt(value);
     this.slidSpeed = speed;
-    this.messageWorker(this.slidOn);
+    this.messageWorker("speed");
   }
 }

@@ -2,10 +2,11 @@
     <img *ngFor="let slide of slides" [src]="slide.url" id="{{slide.cssId}}" class="{{slide.cssClass}}">
 </div>
 <div id="slidButtW" class="relativeItem borderBox l8">
-    <button class="relativeItem borderBox slidButt l9" id="slidButtL" (click)="callSliderMover()">
+    <button class="relativeItem borderBox slidButt l9" id="slidButtL" (click)="CallToMsgSlider('sleep')">
         <fa-icon [icon]="arrowL"></fa-icon>
     </button>
-    <button class="relativeItem borderBox slidButt l9" id="onButton">
+    <button class="relativeItem borderBox slidButt l9" id="onButton"
+    (click)="CallToMsgSlider('off')">
         <fa-icon [icon]="play"></fa-icon>
     </button>
     <button class="relativeItem borderBox slidButt l9" id="speedButton" (mouseenter)="controlSpeedButton(false)">
@@ -21,7 +22,7 @@
         <option value="7500"></option>
         <option value="9000"></option>
     </datalist>
-    <button class="slidButt l9" id="slidButtR" (click)="callSliderMover()">
+    <button class="slidButt l9" id="slidButtR" (click)="CallToMsgSlider('sleep')">
         <fa-icon [icon]="arrowR"></fa-icon>
     </button>
 </div>

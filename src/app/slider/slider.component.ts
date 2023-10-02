@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 // services
 import { SliderService } from './services/slider.service';
-// interfaces
+// interfaces, types
 import { Slides } from './interfaces/slides';
-
+import { SliderMsg } from './types/slider-msg';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
@@ -38,12 +38,6 @@ implements OnInit
     this.callServiceSubscription();
   }
 
-
-  // calls slider mover
-  public callSliderMover() {
-    this.callSliderStatus(false);
-  }
-
   
   // calls service to spawn worker
   private callWorkerInit() {
@@ -54,12 +48,6 @@ implements OnInit
   // calls service to subscribe sliderOn status
   private callServiceSubscription() {
     this.sliderService.subscribeSliderStatus();
-  }
-
-
-  // calls service to turn slider on/off
-  private callSliderStatus(on: boolean) {
-    this.sliderService.changeSliderStatus(on);
   }
 
 
@@ -108,6 +96,13 @@ implements OnInit
   public callSliderSpeed(value: string) {
     this.sliderService.changeSliderSpeed(value);
   }
+
+
+  // calls slider service to send stop message to stop auto sliding indefinitely
+  public CallToMsgSlider(msg: SliderMsg) 
+  {
+    this.sliderService.messageWorker(msg);
+  } 
 };
 
 
