@@ -33,7 +33,7 @@ implements OnInit
   };
 
   ngOnInit(): void {
-    this.setLangArr(this.lang);
+    this.setLangArr();
     this.callWorkerInit();
     this.callServiceSubscription();
   }

@@ -32,13 +32,19 @@ export class LangService {
 
 
   constructor() { 
-    LangService.setLang(LangService.lang)
+    LangService.setLang()
   }
 
   
-  public static setLang(lang: string) {
-    LangService.langSub.next(lang);
-    console.log(`Language set to ${lang}.`)
+  public static setLang() {
+    if (this.lang == "pl") {
+      this.lang = "en" 
+    }
+    else if(this.lang == "en") {
+      this.lang = "pl"
+    }
+    LangService.langSub.next(this.lang);
+    console.log(`Language set to ${this.lang}.`)
   }
 
   public static fetchLangEntry(compName: string): LangEntry | null {

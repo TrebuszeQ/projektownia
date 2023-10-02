@@ -23,23 +23,22 @@ export class UiComponent extends LangUtilities implements OnInit {
   menuAppeared: boolean = true;
   constructor() {
     super("ui");
+    this.setLangArr();
   }
 
   butts: Butts[] = [
-    { name: "placeholder1", url: "", cssId: null, cssClass: null },
-    { name: "placeholder2", url: "", cssId: null, cssClass: null },
-    { name: "placeholder3", url: "", cssId: null, cssClass: null },
-    { name: "placeholder4", url: "", cssId: null, cssClass: null },
-    { name: "placeholder5", url: "", cssId: null, cssClass: null },
-    { name: "placeholder6", url: "", cssId: null, cssClass: null },
-    { name: "placeholder7", url: "", cssId: null, cssClass: null },
-    { name: "placeholder8", url: "", cssId: null, cssClass: null },
+    { name: "placeholder1", url: ""},
+    { name: "placeholder2", url: ""},
+    { name: "placeholder3", url: ""},
+    { name: "placeholder4", url: ""},
+    { name: "placeholder5", url: ""},
+    { name: "placeholder6", url: ""},
+    { name: "placeholder7", url: ""},
+    { name: "placeholder8", url: ""},
   ]
 
 
   ngOnInit(): void {
-    this.setLangArr(this.lang);
-    // this.setLocalLang();
   } 
 
   
@@ -83,14 +82,11 @@ export class UiComponent extends LangUtilities implements OnInit {
     return true
   }
 
+
+  // sets global language in LangService
   setGlobalLang() {
-    if (this.lang == "pl") {
-      this.lang = "en" 
-    }
-    else if(this.lang == "en") {
-      this.lang = "pl"
-    }
-    LangService.setLang(this.lang)
+    LangService.setLang()
+    console.log(this.langArr);
     // this.setLocalLang()
     
   }
