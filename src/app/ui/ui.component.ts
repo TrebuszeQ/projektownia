@@ -77,7 +77,7 @@ export class UiComponent extends LangUtilities implements OnInit {
       menu!.style.setProperty("transform", `translateX(0px)`)
   }
 
-  onClickRed(url: string | URL) {
+  onClickRedirect(url: string | URL) {
     window.open(url)
     return true
   }

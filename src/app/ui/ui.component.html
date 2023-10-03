@@ -9,7 +9,7 @@
     </div>
     <div id="uiLeftW" class="uiElem altColor l10">
         <button *ngFor="let butt of butts; index as i"  type="button" class="leftMenuButt uiButt" id="leftMenuButt{{i}}" 
-        (click)="onClickRed(butt.url)">
+        (click)="onClickRedirect(butt.url)">
             {{this.langArr![i]}}
         </button>
     </div>
