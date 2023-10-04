@@ -8,8 +8,8 @@ import { SliderMsg } from '../types/slider-msg';
 @Injectable({
   providedIn: 'root'
 })
-export class SliderService {
-
+export class SliderService implements OnInit
+{
   static readonly slidClass: string = "sliderImg l8";
   private slidWPos: number =  0;
   readonly slidAmount: number = -100;
@@ -24,22 +24,25 @@ export class SliderService {
     { name: "slide2", url: "/assets/images/interior2.jpeg", cssId: "slide2", cssClass: SliderService.slidClass },
     { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: SliderService.slidClass },
   ];
+
+ ngOnInit() {
+   this.subscribeSliderStatus();
+ }
+
 // serves slides array
   public static srvSlides(): Observable<Slides[]> {
-    const observable = new Observable<Slides[]>(
+    return new Observable<Slides[]>(
       (subscriber) => {
         subscriber.next(this.slides);
         subscriber.complete();
       }
-    )
-    return observable;
+    );
   }
 
 
   // returns slider wrapper as html element
   private getSlidW(): HTMLElement | null {
-    const element = document.getElementById("sliderW");
-    return element;
+    return document.getElementById("sliderW");
   }
 
 
@@ -69,37 +72,41 @@ export class SliderService {
     else return slidWPos;
   }
 
-  // posts message to the worker 
-  public messageWorker(msg: SliderMsg) {
+
+  // posts message to the worker
+  public messageWorker(msg: SliderMsg)
+  {
     if(msg == "speed") this.worker.postMessage([msg, this.slidSpeed]);
+    else if(msg == "off" && this.slidOn) this.changeSliderStatus(false);
     else this.worker.postMessage(msg);
-    
   }
 
 
   // subscribes this.slidSubject to react to changes
-  public subscribeSliderStatus() {
-    this.slidSubject.subscribe({ 
-      next: (on: boolean) => { 
-        this.slidOn = on;
-        if(!on) this.messageWorker("off");
+  public subscribeSliderStatus()
+  {
+    this.slidSubject.subscribe({
+      next: (status: boolean) => {
+        this.slidOn = status;
+        if(status) this.messageWorker("on")
+        else if(!status) this.messageWorker("off");
       }
     });
   }
 
 
   // affects this.slidSubject subject to turn on/off auto sliding
-  public changeSliderStatus(on: boolean) {
-    this.slidSubject.next(on);
+  public changeSliderStatus(status: boolean) {
+    this.slidSubject.next(status);
   }
 
 
   // changes slider wrapper translate or returns void if slider position value is null or ""
-  private mvSlidW() { 
+  private mvSlidW() {
     const compPos: string | null = this.getSlidWPos();
     if (compPos === null) {
       console.error("Slider wrapper translate value is not a string.");
-    } 
+    }
     else if (compPos != null) {
       const elem = this.getSlidW();
       let value = this.slidWPos + this.slidAmount;
@@ -108,7 +115,7 @@ export class SliderService {
       this.slidWPos = value;
       // console.log(this.slidWPos);
       this.animateSlide(value, elem!);
-    } 
+    }
   }
 
 
@@ -131,24 +138,21 @@ export class SliderService {
   // initiates worker
   public spawnSliderWorker() {
     if (typeof Worker !== "undefined") {
-      const worker = new Worker(new URL("src/app/slider/workers/slider.worker2.ts",
+      const worker = new Worker(new URL("src/app/slider/workers/slider.worker.ts",
       import.meta.url));
       this.worker = worker;
       worker.onmessage = () => {
         this.mvSlidW();
       };
-    } 
-    else {
-      console.error("Web workers are not supported in this environment. Slider won't be automatic.");
     }
-  
+    else console.error("Web workers are not supported in this environment. Slider won't be automatic.");
+
   }
-  
+
 
   // casts string and modifies slider speed
   public changeSliderSpeed(value: string) {
-    let speed = parseInt(value);
-    this.slidSpeed = speed;
+    this.slidSpeed = parseInt(value);
     this.messageWorker("speed");
   }
 }

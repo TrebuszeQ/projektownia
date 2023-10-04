@@ -39,9 +39,9 @@ export class UiComponent extends LangUtilities implements OnInit {
 
 
   ngOnInit(): void {
-  } 
+  }
 
-  
+
   async menuAppear() {
     let menu = document.getElementById("uiLeftW")
     if(menu == null) {
@@ -61,8 +61,8 @@ export class UiComponent extends LangUtilities implements OnInit {
     let styleM = window.getComputedStyle(menu!).getPropertyValue("width")
     let value = parseFloat(styleM)
     if (value == undefined) {
-      console.error("width is undefined.") 
-      value = 0 
+      console.error("width is undefined.")
+      value = 0
     }
     return Promise.resolve(value)
   }
@@ -86,40 +86,8 @@ export class UiComponent extends LangUtilities implements OnInit {
   // sets global language in LangService
   setGlobalLang() {
     LangService.setLang()
-    console.log(this.langArr);
-    // this.setLocalLang()
-    
+    // console.log(this.langArr);
+
   }
-
-  // async setLocalLang() {
-  //   await this.setButtsLang()
-  // }
-
-  // async setButtsLang() {
-  //   if (this.lang == "pl") {
-  //     this.butts = [
-  //       { name: "Polish1", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish2", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish3", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish4", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish5", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish6", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish7", url: "", cssId: null, cssClass: null },
-  //       { name: "Polish8", url: "", cssId: null, cssClass: null },
-  //     ]
-  //   }
-  //   else if (this.lang == "en") {
-  //     this.butts = [
-  //       { name: "English1", url: "", cssId: null, cssClass: null },
-  //       { name: "English2", url: "", cssId: null, cssClass: null },
-  //       { name: "English3", url: "", cssId: null, cssClass: null },
-  //       { name: "English4", url: "", cssId: null, cssClass: null },
-  //       { name: "English5", url: "", cssId: null, cssClass: null },
-  //       { name: "English6", url: "", cssId: null, cssClass: null },
-  //       { name: "English7", url: "", cssId: null, cssClass: null },
-  //       { name: "English8", url: "", cssId: null, cssClass: null },
-  //     ]
-  //   }
-  // }
 }
 

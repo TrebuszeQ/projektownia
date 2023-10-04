@@ -1,16 +1,18 @@
-class SliderWorker 
+type SliderMsg = "off" | "sleep" | "speed";
+class SliderWorker
 {
   public static speed: number = 4500;
   private static renewSpeed: number = 9000 + this.speed;
   private static intervalAutoActive: boolean = false;
   private static intervalAuto = setInterval(() => null);
   private static intervalRenew = setInterval(() => null);
-  
-  constructor() 
+
+  constructor()
   {
     // console.log("constructor");
     SliderWorker.UpdatePreviousInstances();
     SliderWorker.ClearRenew();
+    // ?
     SliderWorker.UpdatePreviousInstances();
   }
 
@@ -36,11 +38,11 @@ class SliderWorker
 
 
   // clears previous instance of interval and sets boolean checkpoints to false
-  public static UpdatePreviousInstances() 
+  public static UpdatePreviousInstances()
   {
     clearInterval(SliderWorker.intervalAuto);
     clearInterval(SliderWorker.intervalRenew);
-    SliderWorker.intervalAutoActive = false; 
+    SliderWorker.intervalAutoActive = false;
     SliderWorker.CreateNewAutoInstance();
     SliderWorker.CreateNewRenewInstance();
     // console.log("created");
@@ -50,7 +52,7 @@ class SliderWorker
   // creates new instance of auto interval and calls to clear renew interval
   private static CreateNewAutoInstance()
   {
-    if(SliderWorker.intervalAutoActive == false) 
+    if(!SliderWorker.intervalAutoActive)
     {
       SliderWorker.intervalAutoActive = true;
       SliderWorker.ClearRenew();
@@ -62,37 +64,49 @@ class SliderWorker
   // creates new instance of renew interval if auto is inactive
   private static CreateNewRenewInstance()
   {
-    if(SliderWorker.intervalAutoActive == false)
+    if(!SliderWorker.intervalAutoActive)
     {
       SliderWorker.intervalRenew = setInterval(SliderWorker.IntervalHandlerRenew, SliderWorker.renewSpeed);
     }
   }
-  
-  
+
+
   // posts message to slider service
-  private static IntervalHandlerAuto() 
+  private static IntervalHandlerAuto()
   {
-    if(SliderWorker.intervalAutoActive == false) SliderWorker.intervalAutoActive = true;
+    if(!SliderWorker.intervalAutoActive) SliderWorker.intervalAutoActive = true;
     SliderWorker.SendMessage(true);
   }
 
 
   // calls to create new renew instance if auto is not active
   private static IntervalHandlerRenew() {
-    if(SliderWorker.intervalAutoActive == false) SliderWorker.CreateNewAutoInstance()
+    if(!SliderWorker.intervalAutoActive) SliderWorker.CreateNewAutoInstance()
   }
 
 
   // if message is false it calls to clear auto interval and calls to createrenew interval
-  public static AutoSlide(on: boolean) 
+  public static SlideInterface(data: any)
   {
-    // console.log("autoslide")
-    if(!on) 
+    console.log(data);
+    switch(data)
     {
-      // console.log("cleared");
-      SliderWorker.ClearAuto();
-      SliderWorker.SendMessage(false);
-      SliderWorker.CreateNewRenewInstance();
+      case "on":
+        SliderWorker.UpdatePreviousInstances();
+        break;
+      case "off":
+        SliderWorker.ClearAuto();
+        SliderWorker.ClearRenew();
+        break;
+      case "sleep":
+        SliderWorker.ClearAuto();
+        SliderWorker.SendMessage(false);
+        SliderWorker.CreateNewRenewInstance();
+        break;
+      case "speed":
+        SliderWorker.speed = data[1];
+        SliderWorker.UpdatePreviousInstances();
+        break;
     }
   }
 }
@@ -101,16 +115,6 @@ const workerClass = new SliderWorker();
 
 addEventListener('message', ({ data }) => {
   // const response = `worker response to ${data}`;
-  // console.log(response);
-  if(SliderWorker.speed != data[1]) 
-  {
-    SliderWorker.speed = data[1];
-    SliderWorker.UpdatePreviousInstances();
-  }
-  else if(data[0] == null) 
-  {
-    SliderWorker.ClearRenew();
-    SliderWorker.ClearAuto();
-  }
-  SliderWorker.AutoSlide(data[0]);
+  // console.log(response)
+  SliderWorker.SlideInterface(data);
 });

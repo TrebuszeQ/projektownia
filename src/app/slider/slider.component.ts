@@ -15,17 +15,18 @@ import { LangUtilities } from '../lang/classes/lang-uti';
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css']
 })
-export class SliderComponent 
-extends LangUtilities 
-implements OnInit 
+export class SliderComponent
+extends LangUtilities
+implements OnInit
 {
-  
+
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
-  public slides: Slides[] = []; 
+  public slides: Slides[] = [];
+  private on: boolean = true;
 
-  constructor(private sliderService: SliderService) 
+  constructor(private sliderService: SliderService)
   {
     super("slider");
     SliderService.srvSlides().subscribe(
@@ -38,7 +39,7 @@ implements OnInit
     this.callServiceSubscription();
   }
 
-  
+
   // calls service to spawn worker
   private callWorkerInit() {
     this.sliderService.spawnSliderWorker();
@@ -51,7 +52,7 @@ implements OnInit
   }
 
 
-  // hides or shows speed button 
+  // hides or shows speed button
   public controlSpeedButton(on: boolean) {
     const button = document.getElementById("speedButton");
     if(!on) {
@@ -80,7 +81,7 @@ implements OnInit
           duration: 1500,
         });
     }
-    
+
   }
 
 
@@ -90,7 +91,7 @@ implements OnInit
     const element2 = element as HTMLInputElement;
     this.callSliderSpeed(element2.value);
   }
-  
+
 
   // calls service to change sliding speed
   public callSliderSpeed(value: string) {
@@ -99,11 +100,18 @@ implements OnInit
 
 
   // calls slider service to send stop message to stop auto sliding indefinitely
-  public CallToMsgSlider(msg: SliderMsg) 
+  public CallToMsgSlider(msg: SliderMsg)
   {
     this.sliderService.messageWorker(msg);
-  } 
-};
+  }
+
+  public TurnOffSlider()
+  {
+    this.on = !this.on;
+    if(this.on) this.CallToMsgSlider("off");
+    else this.CallToMsgSlider("on");
+  }
+}
 
 
 

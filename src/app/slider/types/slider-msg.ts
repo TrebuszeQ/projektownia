@@ -1,1 +1,1 @@
-export type SliderMsg = "off" | "sleep" | "speed";  
+export type SliderMsg = "on" | "off" | "sleep" | "speed";
