@@ -1,7 +1,6 @@
-#homeW
+#aboutW
 {
     display: grid;
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: auto;
-    height: auto;
 }

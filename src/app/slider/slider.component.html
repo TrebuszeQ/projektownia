@@ -9,13 +9,13 @@
     (click)="TurnOffSlider()">
         <fa-icon [icon]="play"></fa-icon>
     </button>
-    <button class="relativeItem borderBox slidButt l9" id="speedButton" (mouseenter)="controlSpeedButton(false)">
+    <button class="relativeItem borderBox fontStyleMain slidButt l9" id="speedButton" (mouseenter)="controlSpeedButton(false)">
         <p>{{langArr![0]}}</p>
     </button>
     <input type="range" min="3000" max="9000" value="4500" step="1500" list="markers" class="aboluteItem borderBox speedSlider l8" id="speedSlider"
     (input)="updateLocalSpeed($event)"
     (mouseleave)="controlSpeedButton(true)">
-    <datalist id="markers" class="aboluteItem borderBox speedSlider l7">
+    <datalist id="markers" class="aboluteItem borderBox fontStyleMain speedSlider l7">
         <option value="3000"></option>
         <option value="4500"></option>
         <option value="6000"></option>

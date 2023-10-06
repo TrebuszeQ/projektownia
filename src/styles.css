@@ -9,8 +9,10 @@
 }
 
 .mainColor {
-    background-color: beige;
+    color: rgb(36, 40, 61);
+    background-color: rgb(240, 240, 240);
 }
+
 
 .altColor {
     color: white;
@@ -57,11 +59,15 @@ body {
     border: none;
     outline: none;
     transition: 0.15s;
-    color: rgb(36, 40, 61);
     font-weight: 550;
 }
 
 .uiButt:hover, .slidButt:hover {
     color: aquamarine;
     background-color: black;
+}
+
+.fontStyleMain
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
