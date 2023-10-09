@@ -4,11 +4,9 @@
     grid-template-rows: 60vh;
     align-items: end;
     align-content: center;
-    position: relative;
     margin-top: 5vh;
-    overflow: hidden;
+    width: 300vw;
     background-color: black;
-    transform: translateX(0);
 }
 
 #slidButtW {
@@ -18,7 +16,7 @@
     align-items: center;
     justify-items: center;
     align-content: center;
-    position: absolute;
+    width: 100%;
     background-color: black; 
 }
 

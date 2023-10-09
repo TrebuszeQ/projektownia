@@ -71,3 +71,13 @@ body {
 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.noOverflow
+{
+    overflow: hidden;
+}
+
+.flexItem
+{
+    display: flex;
+}

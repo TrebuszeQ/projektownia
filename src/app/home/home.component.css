@@ -5,3 +5,9 @@
     grid-template-rows: auto;
     height: auto;
 }
+
+.separator 
+{
+    width: 100vw;
+    height: 15vh;
+}

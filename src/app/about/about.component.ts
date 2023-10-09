@@ -12,8 +12,7 @@ import { LangService } from '../lang/lang.service';
 })
 export class AboutComponent extends LangUtilities 
 {
-  constructor(private langService: LangService)
-  {
-    super("about");
-  }
+  constructor(private langService: LangService) { super("about") }
+
+  
 }

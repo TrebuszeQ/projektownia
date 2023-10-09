@@ -19,7 +19,6 @@ export class SliderComponent
 extends LangUtilities
 implements OnInit
 {
-
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
@@ -33,6 +32,7 @@ implements OnInit
       (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
 
+  
   ngOnInit(): void {
     this.setLangArr();
     this.callWorkerInit();
@@ -104,6 +104,7 @@ implements OnInit
   {
     this.sliderService.messageWorker(msg);
   }
+
 
   public TurnOffSlider()
   {

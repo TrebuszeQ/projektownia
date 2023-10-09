@@ -12,7 +12,7 @@ export class SliderService implements OnInit
 {
   static readonly slidClass: string = "sliderImg l8";
   private slidWPos: number =  0;
-  readonly slidAmount: number = -100;
+  readonly slidAmount: number = 1;
   private slidSpeed: number = 4500;
   private animSpeed: number = 2000;
   public slidSubject = new Subject<boolean>();
@@ -64,15 +64,6 @@ export class SliderService implements OnInit
   }
 
 
-  // Controls amount of slideX
-  private validateSlidWPosVal(): number {
-    const slidWPos = this.slidWPos;
-    const slidWPosMin = SliderService.slides.length * -100;
-    if(SliderService.slides.length == 0 || slidWPos == slidWPosMin || slidWPos < slidWPos) return 0;
-    else return slidWPos;
-  }
-
-
   // posts message to the worker
   public messageWorker(msg: SliderMsg)
   {
@@ -109,9 +100,8 @@ export class SliderService implements OnInit
     }
     else if (compPos != null) {
       const elem = this.getSlidW();
-      let value = this.slidWPos + this.slidAmount;
-      this.slidWPos = value;
-      value = this.validateSlidWPosVal();
+      let value: number = this.slidWPos + this.slidAmount;
+      value > 2 ?  value = 0 : value;
       this.slidWPos = value;
       // console.log(this.slidWPos);
       this.animateSlide(value, elem!);
@@ -121,10 +111,11 @@ export class SliderService implements OnInit
 
   // animates slide
   private animateSlide(pos: number, elem: HTMLElement) {
+    let amount = pos * -100;
     elem!.animate(
       [
         {
-          transform: `translateX(${pos}vw)`,
+          transform: `translateX(${amount}vw)`,
           easing: "ease-out",
         }
       ],

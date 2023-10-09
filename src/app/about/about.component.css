@@ -1,6 +1,35 @@
 #aboutW
 {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 50vw);
     grid-template-rows: auto;
+}
+
+.contentB
+{
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 15%;
+    height: 100vh;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.leftB
+{
+    grid-column: 1;
+}
+
+.rightB
+{
+    grid-column: 2;
+
+}
+
+#desImgW
+{
+    height: 100%;
+    width: 100%;
 }
