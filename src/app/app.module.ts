@@ -10,6 +10,7 @@ import { UiComponent } from './ui/ui.component';
 import { SliderComponent } from './slider/slider.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import {NgOptimizedImage} from "@angular/common";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AboutComponent } from './about/about.component';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
+    NgOptimizedImage,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,7 +14,7 @@ export class SliderService implements OnInit
   private slidWPos: number =  0;
   readonly slidAmount: number = 1;
   private slidSpeed: number = 4500;
-  private animSpeed: number = 2000;
+  private animSpeed: number = 1000;
   public slidSubject = new Subject<boolean>();
   private slidOn: boolean = true;
   private worker: any;

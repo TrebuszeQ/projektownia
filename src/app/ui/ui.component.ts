@@ -67,12 +67,12 @@ export class UiComponent extends LangUtilities implements OnInit {
     return Promise.resolve(value)
   }
 
-  async hideMenu(menu: HTMLElement | null, width: number) {
+  public hideMenu(menu: HTMLElement | null, width: number) {
       menu!.style.setProperty("transform", `translateX(${-width}px)`)
       this.menuAppeared = false
   }
 
-  async showMenu(menu: HTMLElement | null) {
+  public showMenu(menu: HTMLElement | null) {
       this.menuAppeared = true
       menu!.style.setProperty("transform", `translateX(0px)`)
   }
@@ -87,7 +87,6 @@ export class UiComponent extends LangUtilities implements OnInit {
   setGlobalLang() {
     LangService.setLang()
     // console.log(this.langArr);
-
   }
 }
 

@@ -1,11 +1,4 @@
 /* common */
-.uiElem {
-    position: absolute;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
-
 .uiButt {
     display: flex;
     justify-content: center;
@@ -24,24 +17,26 @@
 
 /* uiW */
 
-#uiW {
-    display: grid;
-    grid-template-columns: 20vw 80vw;
-    grid-template-rows: 5vh 95vh;
-    align-content: flex-end;
-    position: absolute;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-}
+/*#uiW {*/
+/*    display: grid;*/
+/*    grid-template-columns: 20vw 80vw;*/
+/*    grid-template-rows: 5vh 95vh;*/
+/*    align-content: flex-end;*/
+/*    position: fixed;*/
+/*    overflow: hidden;*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    will-change: transform;*/
+/*}*/
 
 /* uiTop */
 #uiTopW {
     display: grid;
-    grid-column: 1;
-    grid-row: 1/2;
     grid-template-columns: repeat(5, 20vw);
     grid-template-rows: 100%;
+  width: 100vw;
+  height: 5vh;
+  will-change: transform;
 }
 
 #langButt {
@@ -59,7 +54,9 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: repeat(8, 12.5%);
-    grid-column: 1/2;
-    grid-row: 2;
-    transition: ease-in-out 0.25s;
+  margin-top: 5vh;
+  width: 20vw;
+  height: 95vh;
+  will-change: transform;
+  transition: ease-in-out 0.25s;
 }

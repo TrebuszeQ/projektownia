@@ -10,9 +10,13 @@ import { LangService } from '../lang/lang.service';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent extends LangUtilities 
+export class AboutComponent extends LangUtilities
 {
-  constructor(private langService: LangService) { super("about") }
-
-  
+  constructor(private langService: LangService)
+  {
+    super("about")
+    this.setLangArr();
+    console.log(this.langArr);
+    console.log(this.lang);
+  }
 }

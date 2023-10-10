@@ -1,5 +1,8 @@
 <div id="sliderW" class="noOverflow relativeItem borderBox zeroPadding l9">
-    <img *ngFor="let slide of slides" [src]="slide.url" id="{{slide.cssId}}" class="{{slide.cssClass}}">
+    <img *ngFor="let slide of slides; let i" [ngSrc]="slide.url" [priority]="true"
+         [fill]="true"
+         alt="Interior design image {{i}}." class="{{slide.cssClass}}"
+         id="{{slide.cssId}}">
 </div>
 
 <div id="slidButtW" class="relativeItem borderBox mainColor l8">

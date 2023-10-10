@@ -1,17 +1,17 @@
-<div id="uiW" class="noMargin noPadding l10">
-    <div id="uiTopW" class="uiElem altColor">
-        <button id="menuButt" class="uiButt">
-            <fa-icon [icon]="faHome" (click)="menuAppear()"></fa-icon>
-        </button>
-        <button id="langButt" class="uiButt">
-            <fa-icon [icon]="faFlag" (click)="setGlobalLang()"></fa-icon>
-        </button>
-    </div>
-    <div id="uiLeftW" class="uiElem altColor">
-        <button *ngFor="let butt of butts; index as i"  type="button" 
-        class="leftMenuButt uiButt fontStyleMain" id="leftMenuButt{{i}}" 
-        (click)="onClickRedirect(butt.url)">
-            {{this.langArr![i]}}
-        </button>
-    </div>
+<!--<div id="uiW" class="noMargin noPadding">-->
+<div id="uiTopW" class="noOverflow fixedItem altColor noPadding l10">
+    <button id="menuButt" class="uiButt">
+        <fa-icon [icon]="faHome" (click)="menuAppear()"></fa-icon>
+    </button>
+    <button id="langButt" class="uiButt">
+        <fa-icon [icon]="faFlag" (click)="setGlobalLang()"></fa-icon>
+    </button>
 </div>
+<div id="uiLeftW" class="noOverflow fixedItem altColor altColor noPadding l10">
+    <button *ngFor="let butt of butts; index as i"  type="button"
+    class="leftMenuButt uiButt fontStyleMain" id="leftMenuButt{{i}}"
+    (click)="onClickRedirect(butt.url)">
+        {{this.langArr![i]}}
+    </button>
+</div>
+<!--</div>-->

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 // services
 import { SliderService } from './services/slider.service';
 // interfaces, types
@@ -32,7 +33,7 @@ implements OnInit
       (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };
 
-  
+
   ngOnInit(): void {
     this.setLangArr();
     this.callWorkerInit();
