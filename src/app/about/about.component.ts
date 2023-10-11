@@ -12,11 +12,9 @@ import { LangService } from '../lang/lang.service';
 })
 export class AboutComponent extends LangUtilities
 {
-  constructor(private langService: LangService)
+  constructor()
   {
     super("about")
     this.setLangArr();
-    console.log(this.langArr);
-    console.log(this.lang);
   }
 }

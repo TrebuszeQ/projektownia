@@ -6,7 +6,6 @@
     align-content: center;
     margin-top: 5vh;
     width: 300vw;
-    background-color: black;
     will-change: transform;
 }
 
@@ -18,7 +17,6 @@
     justify-items: center;
     align-content: center;
     width: 100%;
-    background-color: black;
 }
 
 .sliderImg {

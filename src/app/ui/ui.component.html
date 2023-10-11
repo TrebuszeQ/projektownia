@@ -7,7 +7,8 @@
         <fa-icon [icon]="faFlag" (click)="setGlobalLang()"></fa-icon>
     </button>
 </div>
-<div id="uiLeftW" class="noOverflow fixedItem altColor altColor noPadding l10">
+
+<div id="uiLeftW" class="noOverflow fixedItem altColor noPadding l10">
     <button *ngFor="let butt of butts; index as i"  type="button"
     class="leftMenuButt uiButt fontStyleMain" id="leftMenuButt{{i}}"
     (click)="onClickRedirect(butt.url)">

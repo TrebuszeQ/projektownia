@@ -1,12 +1,11 @@
 <div id="aboutW" class="borderBox noOverflow relativeItem borderBox mainColor l9">
   <h2 id="aboutTitle" class="mainColor">{{this.langArr![0]}}</h2>
-  <div class="leftB contentB flexItem l8">
-        <p class="mainColor">{{this.langArr![1]}}</p>
-    </div>
-    <div class="borderBox relativeItem noOverflow rightB contentB flexItem l8">
-      <div id="designerImageW" class="relativeItem flexItem l8">
-        <img id="desImg" ngSrc="/assets/images/fake-person.jpg" [fill]="true" [priority]="true"
-             alt="Designer photo.">
-      </div>
-    </div>
+  <p class="pB leftB">{{this.langArr![1]}}</p>
+
+  <div id="designerImageW" class="relativeItem flexItem rightB l8">
+    <img id="desImg" ngSrc="/assets/images/fake-person.jpg" [fill]="true" [priority]="true"
+         alt="Designer photo.">
+  </div>
+
+  <div class="relativeItem separator l8"> </div>
 </div>

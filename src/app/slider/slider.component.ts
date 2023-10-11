@@ -29,6 +29,7 @@ implements OnInit
   constructor(private sliderService: SliderService)
   {
     super("slider");
+    this.setLangArr();
     SliderService.srvSlides().subscribe(
       (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
   };

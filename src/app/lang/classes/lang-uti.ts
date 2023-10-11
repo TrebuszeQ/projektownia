@@ -1,20 +1,23 @@
 // types, interfaces
 import { LangEntry } from '../Interfaces/lang-entry';
+import { Lang } from '../Interfaces/lang';
 // services
 import { LangService } from '../lang.service';
 
 export class LangUtilities {
-  
-  protected lang = "pl" || "en";
+
+  protected lang: Lang = "en";
   protected readonly langEntry?: LangEntry | null = null;
   protected langArr?: string[] | null = null;
   constructor(ComponentName: string) {
+    this.lang = "pl";
     LangService.langSub.subscribe( {
-      next: (lang: string) => { 
-        if(this.lang != lang) {
+      next: (lang: Lang) => {
+        if(this.lang != lang)
+        {
           this.lang = lang;
           this.setLangArr();
-        };
+        }
       }
     });
     const langEntry = LangService.fetchLangEntry(ComponentName);

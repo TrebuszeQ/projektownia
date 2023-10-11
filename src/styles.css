@@ -16,7 +16,7 @@
 
 .altColor {
     color: white;
-    background-color: black;
+    background-color: #e3dfdf;
 }
 
 .l10 {
@@ -85,4 +85,21 @@ body {
 .flexItem
 {
     display: flex;
+}
+
+.separator
+{
+    width: 70vw;
+    height: 20vh;
+    margin: 0 15vw;
+}
+
+.pB
+{
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-indent: 10%;
+    orphans: initial;
+    widows: initial;
+    color: rgb(36, 40, 61);
 }

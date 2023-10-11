@@ -1,12 +1,9 @@
 //  components
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 // interfaces
 import { Butts } from './interfaces/butts';
-
 // fontawesome
-import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';;
-
+import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
 import { LangService } from '../lang/lang.service';
 import { LangUtilities } from '../lang/classes/lang-uti';
@@ -17,7 +14,8 @@ import { LangUtilities } from '../lang/classes/lang-uti';
   styleUrls: ['./ui.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UiComponent extends LangUtilities implements OnInit {
+export class UiComponent extends LangUtilities
+{
   faHome = faHome
   faFlag = faFlag
   menuAppeared: boolean = true;
@@ -37,17 +35,12 @@ export class UiComponent extends LangUtilities implements OnInit {
     { name: "placeholder8", url: ""},
   ]
 
-
-  ngOnInit(): void {
-  }
-
-
   async menuAppear() {
     let menu = document.getElementById("uiLeftW")
     if(menu == null) {
       console.error("menu is null.")
     }
-    else if(this.menuAppeared && menu != null) {
+    else if(this.menuAppeared) {
       let width = await this.getUiLeftWWidth(menu)
       this.hideMenu(menu, width)
     }
@@ -72,19 +65,21 @@ export class UiComponent extends LangUtilities implements OnInit {
       this.menuAppeared = false
   }
 
+
   public showMenu(menu: HTMLElement | null) {
       this.menuAppeared = true
       menu!.style.setProperty("transform", `translateX(0px)`)
   }
 
-  onClickRedirect(url: string | URL) {
+
+  public onClickRedirect(url: string | URL) {
     window.open(url)
     return true
   }
 
 
   // sets global language in LangService
-  setGlobalLang() {
+  public setGlobalLang() {
     LangService.setLang()
     // console.log(this.langArr);
   }

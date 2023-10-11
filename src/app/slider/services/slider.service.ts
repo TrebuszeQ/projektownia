@@ -25,6 +25,7 @@ export class SliderService implements OnInit
     { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: SliderService.slidClass },
   ];
 
+
  ngOnInit() {
    this.subscribeSliderStatus();
  }

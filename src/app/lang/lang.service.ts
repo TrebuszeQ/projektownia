@@ -5,13 +5,14 @@ import { Subject } from 'rxjs';
 import { LangArray } from './Interfaces/lang-type';
 // interfaces
 import { LangEntry } from './Interfaces/lang-entry';
+import {Lang} from "./Interfaces/lang";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService {
-  public static lang: "pl" | "en" = "pl";
-  public static langSub: Subject<string> = new Subject<string>()
+  public static lang: Lang = "pl";
+  public static langSub: Subject<Lang> = new Subject<Lang>();
   static langArr: LangArray = [
     {
       compName: "base",
@@ -20,8 +21,8 @@ export class LangService {
     },
     {
       compName: "ui",
-      contentPl: ["przycisk1", "przycisk2", "przycisk3", "przycisk4", "przycisk5", "przycisk6", "przycisk7", "przycisk8"],
-      contentEn: ["button1", "button2", "button3", "button4", "button5", "button6", "button7", "button8"],
+      contentPl: ["Autor", "przycisk2", "przycisk3", "przycisk4", "przycisk5", "przycisk6", "przycisk7", "przycisk8"],
+      contentEn: ["Author", "button2", "button3", "button4", "button5", "button6", "button7", "button8"],
     },
     {
       compName: "slider",
@@ -36,9 +37,7 @@ export class LangService {
   ]
 
 
-  constructor() {
-    LangService.setLang()
-  }
+  constructor() { LangService.setLang() }
 
 
   public static setLang() {
