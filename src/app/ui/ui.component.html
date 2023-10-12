@@ -12,7 +12,7 @@
     <button *ngFor="let butt of butts; index as i"  type="button"
     class="leftMenuButt uiButt fontStyleMain" id="leftMenuButt{{i}}"
     (click)="onClickRedirect(butt.url)">
-        {{this.langArr![i]}}
+        {{butt.name}}
     </button>
 </div>
 <!--</div>-->

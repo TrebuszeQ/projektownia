@@ -1,5 +1,5 @@
 //  components
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnChanges, ViewEncapsulation } from '@angular/core';
 // interfaces
 import { Butts } from './interfaces/butts';
 // fontawesome
@@ -7,6 +7,7 @@ import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
 import { LangService } from '../lang/lang.service';
 import { LangUtilities } from '../lang/classes/lang-uti';
+import {Lang} from "../lang/Interfaces/lang";
 
 @Component({
   selector: 'app-ui',
@@ -19,21 +20,37 @@ export class UiComponent extends LangUtilities
   faHome = faHome
   faFlag = faFlag
   menuAppeared: boolean = true;
+  // here
   constructor() {
     super("ui");
     this.setLangArr();
+    this.butts = [
+      { name: this.langArr![0], url: this.langArr![1]},
+      { name: this.langArr![2], url: this.langArr![3]},
+      { name: this.langArr![4], url: this.langArr![5]},
+      { name: this.langArr![6], url: this.langArr![7]},
+      { name: this.langArr![8], url: this.langArr![9]},
+      { name: this.langArr![10], url: this.langArr![11]},
+      { name: this.langArr![12], url: this.langArr![13]},
+      { name: this.langArr![14], url: this.langArr![15]},
+    ]
   }
+  butts: Butts[];
 
-  butts: Butts[] = [
-    { name: "placeholder1", url: ""},
-    { name: "placeholder2", url: ""},
-    { name: "placeholder3", url: ""},
-    { name: "placeholder4", url: ""},
-    { name: "placeholder5", url: ""},
-    { name: "placeholder6", url: ""},
-    { name: "placeholder7", url: ""},
-    { name: "placeholder8", url: ""},
-  ]
+  override setLangArr() {
+    if(this.lang == "pl") this.langArr = this.langEntry!.contentPl;
+    else if(this.lang == "en") this.langArr = this.langEntry!.contentEn;
+    this.butts = [
+      { name: this.langArr![0], url: this.langArr![1]},
+      { name: this.langArr![2], url: this.langArr![3]},
+      { name: this.langArr![4], url: this.langArr![5]},
+      { name: this.langArr![6], url: this.langArr![7]},
+      { name: this.langArr![8], url: this.langArr![9]},
+      { name: this.langArr![10], url: this.langArr![11]},
+      { name: this.langArr![12], url: this.langArr![13]},
+      { name: this.langArr![14], url: this.langArr![15]},
+    ]
+}
 
   async menuAppear() {
     let menu = document.getElementById("uiLeftW")
@@ -73,7 +90,7 @@ export class UiComponent extends LangUtilities
 
 
   public onClickRedirect(url: string | URL) {
-    window.open(url)
+    window.open(url, "_self");
     return true
   }
 
