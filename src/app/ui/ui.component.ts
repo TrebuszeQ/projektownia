@@ -10,7 +10,7 @@ import { LangUtilities } from '../lang/classes/lang-uti';
 import {Lang} from "../lang/Interfaces/lang";
 
 @Component({
-  selector: 'app-ui',
+  selector: "app-ui",
   templateUrl: './ui.component.html',
   styleUrls: ['./ui.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -22,25 +22,18 @@ export class UiComponent extends LangUtilities
   menuAppeared: boolean = true;
   // here
   constructor() {
-    super("ui");
-    this.setLangArr();
-    this.butts = [
-      { name: this.langArr![0], url: this.langArr![1]},
-      { name: this.langArr![2], url: this.langArr![3]},
-      { name: this.langArr![4], url: this.langArr![5]},
-      { name: this.langArr![6], url: this.langArr![7]},
-      { name: this.langArr![8], url: this.langArr![9]},
-      { name: this.langArr![10], url: this.langArr![11]},
-      { name: this.langArr![12], url: this.langArr![13]},
-      { name: this.langArr![14], url: this.langArr![15]},
-    ]
+    super();
+    this.LangEntryGetter("ui");
+    // super("ui");
+    // if(this.langArr === null) this.setLangArr(this.lang);
   }
-  butts: Butts[];
 
-  override setLangArr() {
-    if(this.lang == "pl") this.langArr = this.langEntry!.contentPl;
-    else if(this.lang == "en") this.langArr = this.langEntry!.contentEn;
-    this.butts = [
+
+  butts = this.GetButtonArray();
+  private GetButtonArray()
+  {
+    if(this.langArr === null) this.setLangArr(this.lang);
+    return [
       { name: this.langArr![0], url: this.langArr![1]},
       { name: this.langArr![2], url: this.langArr![3]},
       { name: this.langArr![4], url: this.langArr![5]},
@@ -49,8 +42,8 @@ export class UiComponent extends LangUtilities
       { name: this.langArr![10], url: this.langArr![11]},
       { name: this.langArr![12], url: this.langArr![13]},
       { name: this.langArr![14], url: this.langArr![15]},
-    ]
-}
+    ];
+  }
 
   async menuAppear() {
     let menu = document.getElementById("uiLeftW")

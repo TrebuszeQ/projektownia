@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 // classes
 import { LangUtilities } from '../lang/classes/lang-uti';
 // services
-import { LangService } from '../lang/lang.service';
 
 
 @Component({
@@ -15,6 +14,6 @@ export class AboutComponent extends LangUtilities
   constructor()
   {
     super("about")
-    this.setLangArr();
+    if(this.langArr === null) this.setLangArr(this.lang);
   }
 }

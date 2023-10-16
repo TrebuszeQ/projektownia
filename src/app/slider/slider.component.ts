@@ -29,14 +29,13 @@ implements OnInit
   constructor(private sliderService: SliderService)
   {
     super("slider");
-    this.setLangArr();
     SliderService.srvSlides().subscribe(
       (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
+    if(this.langArr === null) this.setLangArr(this.lang);
   };
 
 
   ngOnInit(): void {
-    this.setLangArr();
     this.callWorkerInit();
     this.callServiceSubscription();
   }
