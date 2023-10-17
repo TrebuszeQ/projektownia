@@ -8,7 +8,7 @@ import { SliderMsg } from '../types/slider-msg';
 @Injectable({
   providedIn: 'root'
 })
-export class SliderService implements OnInit
+export class SliderService
 {
   static readonly slidClass: string = "sliderImg l8";
   private slidWPos: number =  0;
@@ -19,49 +19,15 @@ export class SliderService implements OnInit
   private slidOn: boolean = true;
   private worker: any;
 // todo slider service doesnt work well when speed is changed
-  static slides: Slides[] = [
-    { name: "slide1", url: "/assets/images/interior1.jpeg", cssId: "slide1", cssClass: SliderService.slidClass },
-    { name: "slide2", url: "/assets/images/interior2.jpeg", cssId: "slide2", cssClass: SliderService.slidClass },
-    { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: SliderService.slidClass },
-  ];
-
-
- ngOnInit() {
-   this.subscribeSliderStatus();
- }
 
 // serves slides array
-  public static srvSlides(): Observable<Slides[]> {
-    return new Observable<Slides[]>(
-      (subscriber) => {
-        subscriber.next(this.slides);
-        subscriber.complete();
-      }
-    );
-  }
-
-
-  // returns slider wrapper as html element
-  private getSlidW(): HTMLElement | null {
-    return document.getElementById("sliderW");
-  }
-
-
-  // returns slider wrapper computed style
-  private getSlidWComp(elem: HTMLElement) {
-    return window.getComputedStyle(elem).transform;
-  }
-
-
-  // gets slider wrapper transform translateX val or returns null if element is null
-  private getSlidWPos(): string | null {
-    const elem: HTMLElement | null = this.getSlidW();
-    if (elem == null) {
-      console.error("Slider wrapper element is null");
-      return null;
-    } else {
-      return this.getSlidWComp(elem);
-    }
+  public static GetSlides()
+  {
+    return [
+        { name: "slide1", url: "/assets/images/interior1.jpeg", cssId: "slide1", cssClass: SliderService.slidClass },
+        { name: "slide2", url: "/assets/images/interior2.jpeg", cssId: "slide2", cssClass: SliderService.slidClass },
+        { name: "slide3", url: "/assets/images/interior3.jpeg", cssId: "slide3", cssClass: SliderService.slidClass },
+    ];
   }
 
 
@@ -94,29 +60,22 @@ export class SliderService implements OnInit
 
 
   // changes slider wrapper translate or returns void if slider position value is null or ""
-  private mvSlidW() {
-    const compPos: string | null = this.getSlidWPos();
-    if (compPos === null) {
-      console.error("Slider wrapper translate value is not a string.");
-    }
-    else if (compPos != null) {
-      const elem = this.getSlidW();
-      let value: number = this.slidWPos + this.slidAmount;
-      value > 2 ?  value = 0 : value;
-      this.slidWPos = value;
-      // console.log(this.slidWPos);
-      this.animateSlide(value, elem!);
-    }
+  private mvSlidW()
+  {
+    let value: number = this.slidWPos + this.slidAmount;
+    value > 2 ?  value = 0 : value;
+    this.slidWPos = value;
+    // console.log(this.slidWPos);
+    this.animateSlide(value, document.getElementById("sliderW")!);
   }
 
 
   // animates slide
-  private animateSlide(pos: number, elem: HTMLElement) {
-    let amount = pos * -100;
+  protected animateSlide(pos: number, elem: HTMLElement) {
     elem!.animate(
       [
         {
-          transform: `translateX(${amount}vw)`,
+          transform: `translateX(${pos * -100}vw)`,
           easing: "ease-out",
         }
       ],

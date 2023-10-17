@@ -23,15 +23,12 @@ implements OnInit
   readonly arrowL = faArrowRight;
   readonly arrowR = faArrowLeft;
   readonly play = faCaretSquareRight;
-  public slides: Slides[] = [];
+  public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
   constructor(private sliderService: SliderService)
   {
     super("slider");
-    SliderService.srvSlides().subscribe(
-      (slidesSrvd: Slides[]) => this.slides = slidesSrvd);
-    if(this.langArr === null) this.setLangArr(this.lang);
   };
 
 

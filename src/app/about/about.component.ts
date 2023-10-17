@@ -14,6 +14,6 @@ export class AboutComponent extends LangUtilities
   constructor()
   {
     super("about")
-    if(this.langArr === null) this.setLangArr(this.lang);
+    // if(this.langArr === null) this.setLangArr(this.lang);
   }
 }

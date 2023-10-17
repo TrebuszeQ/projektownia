@@ -1,5 +1,5 @@
 //  components
-import { Component, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 // interfaces
 import { Butts } from './interfaces/butts';
 // fontawesome
@@ -22,26 +22,31 @@ export class UiComponent extends LangUtilities
   menuAppeared: boolean = true;
   // here
   constructor() {
-    super();
-    this.LangEntryGetter("ui");
-    // super("ui");
-    // if(this.langArr === null) this.setLangArr(this.lang);
+    super("ui")
+    {
+      LangService.LangSubject.subscribe((lang: Lang) =>
+      {
+        this.Lang = lang;
+        this.LangArr = this.LangEntryGetter("ui");
+        this.butts = this.GetButtonArray();
+      });
+    }
   }
 
 
   butts = this.GetButtonArray();
   private GetButtonArray()
   {
-    if(this.langArr === null) this.setLangArr(this.lang);
+    if(this.LangArr === null) this.constructor();
     return [
-      { name: this.langArr![0], url: this.langArr![1]},
-      { name: this.langArr![2], url: this.langArr![3]},
-      { name: this.langArr![4], url: this.langArr![5]},
-      { name: this.langArr![6], url: this.langArr![7]},
-      { name: this.langArr![8], url: this.langArr![9]},
-      { name: this.langArr![10], url: this.langArr![11]},
-      { name: this.langArr![12], url: this.langArr![13]},
-      { name: this.langArr![14], url: this.langArr![15]},
+      { name: this.LangArr![0], url: this.LangArr![1]},
+      { name: this.LangArr![2], url: this.LangArr![3]},
+      { name: this.LangArr![4], url: this.LangArr![5]},
+      { name: this.LangArr![6], url: this.LangArr![7]},
+      { name: this.LangArr![8], url: this.LangArr![9]},
+      { name: this.LangArr![10], url: this.LangArr![11]},
+      { name: this.LangArr![12], url: this.LangArr![13]},
+      { name: this.LangArr![14], url: this.LangArr![15]},
     ];
   }
 
@@ -90,7 +95,7 @@ export class UiComponent extends LangUtilities
 
   // sets global language in LangService
   public setGlobalLang() {
-    LangService.setLang()
+    LangService.setLang();
     // console.log(this.langArr);
   }
 }

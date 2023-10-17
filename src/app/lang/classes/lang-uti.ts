@@ -6,48 +6,47 @@ import { LangService } from '../lang.service';
 
 export class LangUtilities {
 
-  // protected lang: Lang = LangService.lang;
-  // protected readonly langEntry?: LangEntry | null = this.GetLangEntry(this.lang);
-  // protected langArr?: string[] | null = this.GetLangArr(this.lang);
-  // constructor(ComponentName: string) {
-  //   // LangService.langSub.subscribe( {
-  //   //   next: (lang: Lang) => this.lang != lang ? this.lang = lang : this.lang,
-  //   // });
-  //   // this.langEntry = this.GetLangEntry(ComponentName);
-  //   // console.log(langEntry);
-  //
+  Lang;
+  LangArr;
+  constructor(ComponentName: string)
+  {
+    this.Lang = this.LangGetter();
+    this.LangArr = this.LangEntryGetter(ComponentName);
+
+    LangService.LangSubject.subscribe((lang: Lang) =>
+    {
+      this.Lang = lang;
+      console.log(lang);
+      this.LangArr = this.LangEntryGetter(ComponentName);
+    });
+  }
+
+
+  // protected RefreshLang(ComponentName: string, lang: Lang)
+  // {
+  //   console.log("lol");
+  //   this.Lang = lang;
+  //   this.LangArr = this.LangEntryGetter(ComponentName);
   // }
 
+
+  // gets lang from LangService
   protected LangGetter()
   {
-    return LangService.lang;
+    return LangService.GetLang();
   }
 
+
+  // gets language entry from language service
   protected LangEntryGetter(componentName: string)
   {
-    let lang = this.LangGetter();
-    let langEntry: LangEntry | null = LangService.fetchLangEntry(componentName);
-    if (langEntry != null)
+    let lang = this.Lang;
+    let langEntry = LangService.fetchLangEntry(componentName);
+    if (!langEntry) throw Error(`Language contest of this page couldn't been fetched. ${langEntry}`);
+    else
     {
       if(lang == "pl") return langEntry.contentPl;
-      return langEntry.contentEn
+      return langEntry.contentEn;
     }
-    else throw new Error("Language contest of this page couldn't been fetched.");
   }
-  // protected GetLangArr(lang: Lang)
-  // {
-  //   if(lang == "pl") return this.langEntry!.contentPl;
-  //   return this.langEntry!.contentEn;
-  // }
-  //
-  // protected GetLangEntry(ComponentName: string)
-  // {
-  //   return LangService.fetchLangEntry(ComponentName);
-  // }
-  //
-  // protected setLangArr(lang: Lang) {
-  //   if(lang == "pl") this.langArr = this.langEntry!.contentPl;
-  //   else if(lang == "en") this.langArr = this.langEntry!.contentEn;
-  // }
-  //
 }
