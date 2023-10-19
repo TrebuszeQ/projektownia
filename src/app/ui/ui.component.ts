@@ -1,7 +1,11 @@
+// angular
+import {
+  ActivatedRoute, RouterStateSnapshot,
+} from "@angular/router";
+import { Location } from '@angular/common';
 //  components
 import { Component, ViewEncapsulation } from '@angular/core';
 // interfaces
-import { Butts } from './interfaces/butts';
 // fontawesome
 import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
@@ -9,11 +13,14 @@ import { LangService } from '../lang/lang.service';
 import { LangUtilities } from '../lang/classes/lang-uti';
 import {Lang} from "../lang/Interfaces/lang";
 
+
 @Component({
   selector: "app-ui",
   templateUrl: './ui.component.html',
   styleUrls: ['./ui.component.css'],
   encapsulation: ViewEncapsulation.None,
+  providers: [
+  ]
 })
 export class UiComponent extends LangUtilities
 {
@@ -21,7 +28,7 @@ export class UiComponent extends LangUtilities
   faFlag = faFlag
   menuAppeared: boolean = true;
   // here
-  constructor() {
+  constructor(private route: ActivatedRoute, private location: Location) {
     super("ui")
     {
       LangService.LangSubject.subscribe((lang: Lang) =>
@@ -31,8 +38,11 @@ export class UiComponent extends LangUtilities
         this.butts = this.GetButtonArray();
       });
     }
-  }
 
+    let id = this.route.snapshot.paramMap.get("id");
+    console.log(this.route.snapshot.paramMap);
+    console.log(id);
+  }
 
   butts = this.GetButtonArray();
   private GetButtonArray()
@@ -86,12 +96,10 @@ export class UiComponent extends LangUtilities
       menu!.style.setProperty("transform", `translateX(0px)`)
   }
 
-
   public onClickRedirect(url: string | URL) {
     window.open(url, "_self");
     return true
   }
-
 
   // sets global language in LangService
   public setGlobalLang() {

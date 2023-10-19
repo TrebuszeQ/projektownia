@@ -8,6 +8,7 @@
     transition: 0.15s;
     color: rgb(36, 40, 61);
     font-weight: 550;
+  cursor: pointer;
 }
 
 .uiButt:hover {

@@ -1,5 +1,4 @@
 // types, interfaces
-import { LangEntry } from '../Interfaces/lang-entry';
 import { Lang } from '../Interfaces/lang';
 // services
 import { LangService } from '../lang.service';
@@ -16,18 +15,9 @@ export class LangUtilities {
     LangService.LangSubject.subscribe((lang: Lang) =>
     {
       this.Lang = lang;
-      console.log(lang);
       this.LangArr = this.LangEntryGetter(ComponentName);
     });
   }
-
-
-  // protected RefreshLang(ComponentName: string, lang: Lang)
-  // {
-  //   console.log("lol");
-  //   this.Lang = lang;
-  //   this.LangArr = this.LangEntryGetter(ComponentName);
-  // }
 
 
   // gets lang from LangService

@@ -8,15 +8,16 @@ import { SliderComponent } from './slider/slider.component';
 import {AboutComponent} from "./about/about.component";
 
 const routes: Routes = [
-  {path: "", component: HomeComponent },
-  { path: "home", component: HomeComponent },
-  { path: "ui", component: UiComponent },
-  { path: "wrapper", component: AppComponent },
-  { path: "slider", component: SliderComponent },
-  { path: "author", component: AboutComponent },
-  { path: "autor", component: AboutComponent },
-  { path: "about", component: AboutComponent },
-  { path: "omnie", component: AboutComponent },
+  {path: "", redirectTo: "home", pathMatch: "full" },
+  { path: "home", component: HomeComponent, title: "Home" },
+  { path: "glowna", component: HomeComponent, title: "Strona główna" },
+  { path: "ui", component: UiComponent, title: "ui", data: {lang: "pl"} },
+  { path: "wrapper", component: AppComponent, title: "Wrapper" },
+  { path: "slider", component: SliderComponent, title: "Slider" },
+  { path: "author", component: AboutComponent, title: "Author", data: {lang: "en"} },
+  { path: "autor", component: AboutComponent, title: "Autor", data: {lang: "pl" } },
+  { path: "about", component: AboutComponent, title:"About", data: {lang: "en"} },
+  { path: "omnie", component: AboutComponent, title:"O mnie", data: {lang: "pl"} },
 ];
 
 @NgModule({

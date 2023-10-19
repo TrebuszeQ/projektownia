@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {LangUtilities} from "./lang/classes/lang-uti";
 import {LangService} from "./lang/lang.service";
+import {Lang} from "./lang/Interfaces/lang";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -10,10 +12,14 @@ import {LangService} from "./lang/lang.service";
 export class AppComponent
 {
   title = 'projektownia';
-  lol: string;
+  protected static lang: Lang = "pl";
   constructor()
   {
-    this.lol = "lol";
+    console.log(AppComponent.lang);
   }
 
+  public static GetLang()
+  {
+    return this.lang;
+  }
 }

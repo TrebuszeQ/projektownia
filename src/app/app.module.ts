@@ -10,7 +10,8 @@ import { UiComponent } from './ui/ui.component';
 import { SliderComponent } from './slider/slider.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import {NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
+
 
 
 @NgModule({

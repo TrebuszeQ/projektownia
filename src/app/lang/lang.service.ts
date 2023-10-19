@@ -5,19 +5,22 @@ import {Subject} from 'rxjs';
 import { LangEntry } from './Interfaces/lang-entry';
 import {Lang} from "./Interfaces/lang";
 import {LangUtilities} from "./classes/lang-uti";
+import {AppComponent} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService {
-  protected static lang: Lang = "pl";
+  protected static lang: Lang = AppComponent.GetLang();
   public static LangSubject: Subject<Lang>= new Subject();
   protected static langMap: Map <string, LangEntry> = new Map();
 
 
   public constructor()
   {
-    LangService.setLang();
+    LangService.lang = AppComponent.GetLang();
+    LangService.LangSubject.next(LangService.lang);
+    // LangService.setLang();
   }
 
 
