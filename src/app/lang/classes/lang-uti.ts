@@ -2,13 +2,22 @@
 import { Lang } from '../Interfaces/lang';
 // services
 import { LangService } from '../lang.service';
+import {ActivatedRoute} from "@angular/router";
 
 export class LangUtilities {
 
-  Lang;
+  Lang: Lang;
   LangArr;
-  constructor(ComponentName: string)
+  constructor(ComponentName: string, route: ActivatedRoute)
   {
+    route.data.subscribe(data => {
+      if (Object.keys(data).length > 0)
+      {
+        console.log(data);
+        let lang = Object.values(data)[0];
+        console.log(lang);
+      }
+    });
     this.Lang = this.LangGetter();
     this.LangArr = this.LangEntryGetter(ComponentName);
 
@@ -18,7 +27,6 @@ export class LangUtilities {
       this.LangArr = this.LangEntryGetter(ComponentName);
     });
   }
-
 
   // gets lang from LangService
   protected LangGetter()

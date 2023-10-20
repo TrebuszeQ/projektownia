@@ -9,6 +9,7 @@ import { SliderMsg } from './types/slider-msg';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
 import { LangUtilities } from '../lang/classes/lang-uti';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -26,9 +27,9 @@ implements OnInit
   public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
-  constructor(private sliderService: SliderService)
+  constructor(private sliderService: SliderService, private route: ActivatedRoute)
   {
-    super("slider");
+    super("slider", route);
   };
 
 

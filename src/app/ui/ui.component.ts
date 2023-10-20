@@ -1,8 +1,7 @@
 // angular
 import {
-  ActivatedRoute, RouterStateSnapshot,
+  ActivatedRoute, RouterStateSnapshot, Route
 } from "@angular/router";
-import { Location } from '@angular/common';
 //  components
 import { Component, ViewEncapsulation } from '@angular/core';
 // interfaces
@@ -28,8 +27,8 @@ export class UiComponent extends LangUtilities
   faFlag = faFlag
   menuAppeared: boolean = true;
   // here
-  constructor(private route: ActivatedRoute, private location: Location) {
-    super("ui")
+  constructor(private route: ActivatedRoute) {
+    super("ui", route)
     {
       LangService.LangSubject.subscribe((lang: Lang) =>
       {
@@ -38,10 +37,6 @@ export class UiComponent extends LangUtilities
         this.butts = this.GetButtonArray();
       });
     }
-
-    let id = this.route.snapshot.paramMap.get("id");
-    console.log(this.route.snapshot.paramMap);
-    console.log(id);
   }
 
   butts = this.GetButtonArray();

@@ -8,12 +8,12 @@ import { SliderComponent } from './slider/slider.component';
 import {AboutComponent} from "./about/about.component";
 
 const routes: Routes = [
-  {path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: HomeComponent, title: "Home" },
-  { path: "glowna", component: HomeComponent, title: "Strona główna" },
+  {path: "", redirectTo: "glowna", pathMatch: "full" },
+  { path: "home", component: HomeComponent, title: "Home", data: {lang: "en"} },
+  { path: "glowna", component: HomeComponent, title: "Strona główna", data: {lang: "pl"} },
   { path: "ui", component: UiComponent, title: "ui", data: {lang: "pl"} },
-  { path: "wrapper", component: AppComponent, title: "Wrapper" },
-  { path: "slider", component: SliderComponent, title: "Slider" },
+  { path: "wrapper", component: AppComponent, title: "Wrapper", data: {lang: "pl"} },
+  { path: "slider", component: SliderComponent, title: "Slider", data: {lang: "pl"} },
   { path: "author", component: AboutComponent, title: "Author", data: {lang: "en"} },
   { path: "autor", component: AboutComponent, title: "Autor", data: {lang: "pl" } },
   { path: "about", component: AboutComponent, title:"About", data: {lang: "en"} },
