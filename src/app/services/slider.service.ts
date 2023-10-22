@@ -1,6 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 // RxJS
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 // interfaces, types
 import { Slides } from '../interfaces/slides';
 import { SliderMsg } from '../types/slider-msg';
@@ -18,7 +18,6 @@ export class SliderService
   public slidSubject = new Subject<boolean>();
   private slidOn: boolean = true;
   private worker: any;
-// todo slider service doesnt work well when speed is changed
 
 // serves slides array
   public static GetSlides()
@@ -89,7 +88,7 @@ export class SliderService
   // initiates worker
   public spawnSliderWorker() {
     if (typeof Worker !== "undefined") {
-      const worker = new Worker(new URL("src/app/slider/workers/slider.worker.ts",
+      const worker = new Worker(new URL("src/app/workers/slider.worker.ts",
       import.meta.url));
       this.worker = worker;
       worker.onmessage = () => {

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 // rxjs
 import {Subject} from 'rxjs';
 // interfaces, types, etc
-import { LangEntry } from './Interfaces/lang-entry';
-import {Lang} from "./Interfaces/lang";
-import {LangUtilities} from "./classes/lang-uti";
+import { LangEntry } from '../interfaces/lang-entry';
+import {Lang} from "../interfaces/lang";
+import {LangUtilities} from "../classes/lang-uti";
 import {AppComponent} from "../app.component";
 
 @Injectable({
@@ -18,6 +18,7 @@ export class LangService {
 
   public constructor()
   {
+    console.log("lang.service");
     LangService.lang = AppComponent.GetLang();
     LangService.LangSubject.next(LangService.lang);
     // LangService.setLang();
@@ -32,8 +33,8 @@ export class LangService {
 
   protected static PopulateMap()
   {
-    this.langMap.set("base", {
-      compName: "base",
+    this.langMap.set("home", {
+      compName: "home",
       contentPl: null,
       contentEn: null
     });
@@ -42,9 +43,9 @@ export class LangService {
       compName: "ui",
       contentPl: [
         "Strona główna",
-        "home",
+        "strona_glowna",
         "O mnie",
-        "omnie",
+        "o_mnie",
         "przycisk3",
         "link3",
         "przycisk4",
@@ -91,7 +92,7 @@ export class LangService {
     });
   }
 
-  public static setLang() {
+  public static SetLang() {
     this.lang == "pl" ? this.lang = "en" : this.lang = "pl";
     this.LangSubject.next(this.lang);
     console.log(`Language set to ${this.lang}.`);

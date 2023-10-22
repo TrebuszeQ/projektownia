@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 // services
-import { SliderService } from './services/slider.service';
+import { SliderService } from '../services/slider.service';
 // interfaces, types
-import { Slides } from './interfaces/slides';
-import { SliderMsg } from './types/slider-msg';
+import { Slides } from '../interfaces/slides';
+import { SliderMsg } from '../types/slider-msg';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
-import { LangUtilities } from '../lang/classes/lang-uti';
+import { LangUtilities } from '../classes/lang-uti';
 import {ActivatedRoute} from "@angular/router";
+import {LangService} from "../services/lang.service";
 
 
 @Component({
@@ -27,9 +28,9 @@ implements OnInit
   public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
-  constructor(private sliderService: SliderService, private route: ActivatedRoute)
+  constructor(private sliderService: SliderService, private route: ActivatedRoute, langService: LangService)
   {
-    super("slider", route);
+    super("slider", route, langService);
   };
 
 

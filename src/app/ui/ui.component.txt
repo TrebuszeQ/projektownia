@@ -8,9 +8,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 // fontawesome
 import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
-import { LangService } from '../services/lang.service';
-import { LangUtilities } from '../classes/lang-uti';
-import {Lang} from "../interfaces/lang";
+import { LangService } from '../lang/lang.service';
+import { LangUtilities } from '../lang/classes/lang-uti';
+import {Lang} from "../lang/Interfaces/lang";
 
 
 @Component({
@@ -27,11 +27,10 @@ export class UiComponent extends LangUtilities
   faFlag = faFlag
   menuAppeared: boolean = true;
   // here
-  constructor(private route: ActivatedRoute, langService: LangService)
-  {
-    super("ui", route, langService)
+  constructor(private route: ActivatedRoute) {
+    super("ui", route)
     {
-      langService.LangSubject.subscribe((lang: Lang) =>
+      LangService.LangSubject.subscribe((lang: Lang) =>
       {
         this.Lang = lang;
         this.LangArr = this.LangEntryGetter("ui");
@@ -41,10 +40,9 @@ export class UiComponent extends LangUtilities
   }
 
   butts = this.GetButtonArray();
-
   private GetButtonArray()
   {
-    if(this.LangArr == null) this.constructor();
+    if(this.LangArr === null) this.constructor();
     return [
       { name: this.LangArr![0], url: this.LangArr![1]},
       { name: this.LangArr![2], url: this.LangArr![3]},
@@ -100,7 +98,7 @@ export class UiComponent extends LangUtilities
 
   // sets global language in LangService
   public setGlobalLang() {
-    this.langService.SetLang();
+    LangService.SetLang();
     // console.log(this.langArr);
   }
 }
