@@ -8,7 +8,7 @@
 </div>
 
 <div id="uiLeftW" class="noOverflow fixedItem altColor noPadding l10">
-    <button *ngFor="let butt of butts; index as i"  type="button"
+    <button *ngFor="let butt of butts; index as i"  type="button" title="{{butt.name}}"
     class="leftMenuButt uiButt fontStyleMain" id="leftMenuButt{{i}}"
             (click)="onClickRedirect(butt.url)">
         {{butt.name}}

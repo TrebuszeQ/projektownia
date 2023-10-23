@@ -1,29 +1,36 @@
 import { Injectable } from '@angular/core';
 // rxjs
-import {Subject} from 'rxjs';
+import {Observer, Subject} from 'rxjs';
 // interfaces, types, etc
 import { LangEntry } from '../interfaces/lang-entry';
 import {Lang} from "../interfaces/lang";
-import {LangUtilities} from "../classes/lang-uti";
-import {AppComponent} from "../app.component";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService {
-  protected lang: Lang;
-  public LangSubject: Subject<Lang>= new Subject();
-  protected langMap: Map <string, LangEntry> = new Map();
-
+  public static LangSubject: Subject<Lang> = new Subject();
+  protected langMap: Map <string, LangEntry>;
+  private static Lang: Lang;
 
   public constructor()
   {
-    console.log("lang.service");
-    this.lang = AppComponent.GetLang();
-    this.LangSubject.next(this.lang);
-    // LangService.setLang();
+    // console.log("lang.service");
+    this.langMap = new Map();
   }
 
+  public static SetLang(lang: Lang)
+  {
+    lang === "pl" ? this.Lang = "en" : this.Lang = "pl";
+    LangService.LangSubject.next(this.Lang);
+    console.log("Language set to " + this.Lang + ".");
+  }
+
+  public static GetLang()
+  {
+    return this.Lang;
+  }
 
   protected langMapGetter()
   {
@@ -90,16 +97,6 @@ export class LangService {
       contentPl: ["O mnie", `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a ullamcorper lacus. Aliquam feugiat et ipsum id venenatis. Suspendisse potenti. Aenean ornare, elit eu tempus maximus, purus neque tristique nunc, et auctor leo tortor ut purus. Donec cursus, lectus vitae vestibulum varius, mi nunc convallis nisi, non euismod ipsum nisl at libero. Vestibulum sollicitudin quis nisi in scelerisque. Mauris nec tristique lectus. Vivamus mattis, tellus in facilisis porttitor, orci orci vulputate elit, vitae ultricies enim enim vitae ligula. Nunc quis aliquam urna, non venenatis erat. Vivamus porttitor diam id suscipit placerat. Sed maximus, nunc lacinia commodo viverra, nunc nulla vulputate lectus, a aliquam mauris tellus vitae ligula.`],
       contentEn: ["About me", `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a ullamcorper lacus. Aliquam feugiat et ipsum id venenatis. Suspendisse potenti. Aenean ornare, elit eu tempus maximus, purus neque tristique nunc, et auctor leo tortor ut purus. Donec cursus, lectus vitae vestibulum varius, mi nunc convallis nisi, non euismod ipsum nisl at libero. Vestibulum sollicitudin quis nisi in scelerisque. Mauris nec tristique lectus. Vivamus mattis, tellus in facilisis porttitor, orci orci vulputate elit, vitae ultricies enim enim vitae ligula. Nunc quis aliquam urna, non venenatis erat. Vivamus porttitor diam id suscipit placerat. Sed maximus, nunc lacinia commodo viverra, nunc nulla vulputate lectus, a aliquam mauris tellus vitae ligula.`],
     });
-  }
-
-  public SetLang() {
-    this.lang == "pl" ? this.lang = "en" : this.lang = "pl";
-    this.LangSubject.next(this.lang);
-    console.log(`Language set to ${this.lang}.`);
-  }
-
-  public GetLang() {
-    return this.lang;
   }
 
   public fetchLangEntry(key: string)

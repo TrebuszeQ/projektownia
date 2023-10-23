@@ -1,7 +1,5 @@
-// angular
-import {
-  ActivatedRoute, RouterStateSnapshot, Route
-} from "@angular/router";
+// rxjs
+import { Observer } from "rxjs";
 //  components
 import { Component, ViewEncapsulation } from '@angular/core';
 // interfaces
@@ -10,41 +8,51 @@ import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
 import { LangService } from '../services/lang.service';
 import { LangUtilities } from '../classes/lang-uti';
-import {Lang} from "../interfaces/lang";
+import { Lang } from "../interfaces/lang";
+import {Butts} from "./interfaces/butts";
 
 
 @Component({
   selector: "app-ui",
   templateUrl: './ui.component.html',
   styleUrls: ['./ui.component.css'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [
-  ]
 })
 export class UiComponent extends LangUtilities
 {
   faHome = faHome
   faFlag = faFlag
   menuAppeared: boolean = true;
-  // here
-  constructor(private route: ActivatedRoute, langService: LangService)
+  butts: Butts[];
+  override Observer: Observer<Lang>;
+  override Subscription;
+  constructor(langService: LangService)
   {
-    super("ui", route, langService)
+
+    super("ui", langService)
     {
-      langService.LangSubject.subscribe((lang: Lang) =>
-      {
-        this.Lang = lang;
-        this.LangArr = this.LangEntryGetter("ui");
-        this.butts = this.GetButtonArray();
-      });
+      this.LangArr = this.LangEntryGetter("ui");
+      this.butts = this.GetButtonArray();
+      this.Observer = {
+        "next": (lang: Lang) => {
+          if (this.Lang != lang) {
+            this.Lang = lang;
+            this.LangArr = this.LangEntryGetter("ui");
+            this.butts = this.GetButtonArray();
+            console.log(this.butts);
+          }
+        },
+        "error": (error: Error) => {
+          console.error(error);
+        },
+        "complete": () => {
+        }
+      }
+      this.Subscription = LangService.LangSubject.subscribe(this.Observer);
     }
   }
 
-  butts = this.GetButtonArray();
-
   private GetButtonArray()
   {
-    if(this.LangArr == null) this.constructor();
     return [
       { name: this.LangArr![0], url: this.LangArr![1]},
       { name: this.LangArr![2], url: this.LangArr![3]},
@@ -99,9 +107,9 @@ export class UiComponent extends LangUtilities
   }
 
   // sets global language in LangService
-  public setGlobalLang() {
-    this.langService.SetLang();
-    // console.log(this.langArr);
+  public setGlobalLang()
+  {
+    LangService.SetLang(this.Lang);
   }
 }
 

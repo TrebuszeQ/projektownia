@@ -28,9 +28,9 @@ implements OnInit
   public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
-  constructor(private sliderService: SliderService, private route: ActivatedRoute, langService: LangService)
+  constructor(private sliderService: SliderService, langService: LangService)
   {
-    super("slider", route, langService);
+    super("slider", langService);
   };
 
 

@@ -1,70 +1,46 @@
-// angular
-import { ActivatedRoute } from "@angular/router";
 // types, interfaces
 import { Lang } from '../interfaces/lang';
 // services
 import { LangService } from '../services/lang.service';
+import {Observer, Subscription} from "rxjs";
 
 
 export class LangUtilities {
 
-  Lang: Lang;
-  LangArr;
-  constructor(ComponentName: string, route: ActivatedRoute, protected langService: LangService)
+  protected Lang: Lang;
+  protected LangArr;
+  protected Observer: Observer<Lang>;
+  protected Subscription: Subscription;
+  constructor(private ComponentName: string, protected langService: LangService)
   {
-      this.Lang = this.LangGetter();
-      this.LangArr = this.LangEntryGetter(ComponentName);
-      langService.LangSubject.subscribe((lang: Lang) =>
-      {
-        if(this.Lang != lang)
-        {
-          console.log("lol", ComponentName);
-          this.Lang = lang;
-          this.LangArr = this.LangEntryGetter(ComponentName);
-        }
-      });
-    // let lang: Lang = "pl";
-    // route.data.subscribe(data => {
-    //   if (Object.keys(data).length > 0) lang = Object.values(data)[0];
-    //   console.log("lol", ComponentName);
-    // }).unsubscribe();
-    //
-    // if (lang != null)
-    // {
-    //   this.Lang = lang;
-    //   LangService.SetLang();
-    // }
-    // else this.Lang = this.LangGetter();
-    //
-    // this.LangArr = this.LangEntryGetter(ComponentName);
-    //
-    // LangService.LangSubject.subscribe((lang: Lang) =>
-    // {
-    //   if(this.Lang != lang)
-    //   {
-    //     this.Lang = lang;
-    //     this.LangArr = this.LangEntryGetter(ComponentName);
-    //   }
-    // });
-  }
+      this.Lang = LangService.GetLang();
+      this.LangArr = this.LangEntryGetter(this.ComponentName);
 
-  // gets lang from LangService
-  protected LangGetter()
-  {
-    return this.langService.GetLang();
+      this.Observer = {
+        "next": (lang: Lang)  => {
+          // console.log(ComponentName, lang);
+          if(this.Lang != lang)
+          {
+            this.Lang = lang;
+            this.LangArr = this.LangEntryGetter(this.ComponentName);
+            console.log(this.ComponentName);
+          }
+        },
+        "error": (error: Error) => { console.error(error); },
+        "complete": () => {}
+      }
+      this. Subscription = LangService.LangSubject.subscribe(this.Observer);
   }
-
 
   // gets language entry from language service
   protected LangEntryGetter(componentName: string)
   {
-    let lang = this.Lang;
     let langEntry = this.langService.fetchLangEntry(componentName);
     if (!langEntry) throw Error(`Language contest of this page couldn't been fetched. ${langEntry}`);
     else
     {
-      if(lang == "pl") return langEntry.contentPl;
-      return langEntry.contentEn;
+      if(this.Lang === "pl") return langEntry.contentPl;
+      else return langEntry.contentEn;
     }
   }
 }

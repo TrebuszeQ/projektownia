@@ -13,9 +13,9 @@ import {LangService} from "../services/lang.service";
 })
 export class AboutComponent extends LangUtilities
 {
-  constructor(private route: ActivatedRoute, langService: LangService)
+  constructor(langService: LangService)
   {
-    super("about", route, langService);
+    super("about", langService);
     // if(this.langArr === null) this.setLangArr(this.lang);
   }
 }
