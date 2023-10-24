@@ -10,26 +10,17 @@ import {Lang} from "../interfaces/lang";
   providedIn: 'root'
 })
 export class LangService {
-  public static LangSubject: Subject<Lang> = new Subject();
+  static readonly LangSubject: Subject<Lang> = new Subject();
   protected langMap: Map <string, LangEntry>;
-  private static Lang: Lang;
 
   public constructor()
   {
-    // console.log("lang.service");
     this.langMap = new Map();
   }
 
-  public static SetLang(lang: Lang)
+  public SetLang(lang: Lang)
   {
-    lang === "pl" ? this.Lang = "en" : this.Lang = "pl";
-    LangService.LangSubject.next(this.Lang);
-    console.log("Language set to " + this.Lang + ".");
-  }
-
-  public static GetLang()
-  {
-    return this.Lang;
+      LangService.LangSubject.next(lang);
   }
 
   protected langMapGetter()

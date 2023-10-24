@@ -1,7 +1,7 @@
 // rxjs
 import { Observer } from "rxjs";
 //  components
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 // interfaces
 // fontawesome
 import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,7 @@ import { LangService } from '../services/lang.service';
 import { LangUtilities } from '../classes/lang-uti';
 import { Lang } from "../interfaces/lang";
 import {Butts} from "./interfaces/butts";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -25,10 +26,10 @@ export class UiComponent extends LangUtilities
   butts: Butts[];
   override Observer: Observer<Lang>;
   override Subscription;
-  constructor(langService: LangService)
+  constructor(route: ActivatedRoute, langService: LangService)
   {
 
-    super("ui", langService)
+    super("ui", route, langService)
     {
       this.LangArr = this.LangEntryGetter("ui");
       this.butts = this.GetButtonArray();
@@ -36,10 +37,9 @@ export class UiComponent extends LangUtilities
         "next": (lang: Lang) => {
           if (this.Lang != lang) {
             this.Lang = lang;
-            this.LangArr = this.LangEntryGetter("ui");
-            this.butts = this.GetButtonArray();
-            console.log(this.butts);
           }
+          this.LangArr = this.LangEntryGetter("ui");
+          this.butts = this.GetButtonArray();
         },
         "error": (error: Error) => {
           console.error(error);
@@ -109,7 +109,8 @@ export class UiComponent extends LangUtilities
   // sets global language in LangService
   public setGlobalLang()
   {
-    LangService.SetLang(this.Lang);
+    console.log(this.Lang);
+    this.langService.SetLang(this.Lang);
   }
 }
 
