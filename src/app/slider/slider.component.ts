@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
 // services
 import {LangService} from "../services/lang.service";
 import { SliderService } from '../services/slider.service';
@@ -28,9 +27,9 @@ implements OnInit
   public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
-  constructor(private sliderService: SliderService, route: ActivatedRoute, langService: LangService)
+  constructor(private sliderService: SliderService, langService: LangService)
   {
-    super("slider",route, langService);
+    super("slider", langService);
   };
 
 

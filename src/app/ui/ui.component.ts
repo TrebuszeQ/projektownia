@@ -11,6 +11,7 @@ import { LangUtilities } from '../classes/lang-uti';
 import { Lang } from "../interfaces/lang";
 import {Butts} from "./interfaces/butts";
 import {ActivatedRoute} from "@angular/router";
+import {AppComponent} from "../app.component";
 
 
 @Component({
@@ -24,33 +25,30 @@ export class UiComponent extends LangUtilities
   faFlag = faFlag
   menuAppeared: boolean = true;
   butts: Butts[];
-  override Observer: Observer<Lang>;
   override Subscription;
-  constructor(route: ActivatedRoute, langService: LangService)
+  constructor(langService: LangService)
   {
-
-    super("ui", route, langService)
+    super("ui", langService)
     {
-      this.LangArr = this.LangEntryGetter("ui");
       this.butts = this.GetButtonArray();
-      this.Observer = {
-        "next": (lang: Lang) => {
-          if (this.Lang != lang) {
-            this.Lang = lang;
-          }
-          this.LangArr = this.LangEntryGetter("ui");
-          this.butts = this.GetButtonArray();
-        },
-        "error": (error: Error) => {
-          console.error(error);
-        },
-        "complete": () => {
-        }
-      }
-      this.Subscription = LangService.LangSubject.subscribe(this.Observer);
+      this.Subscription = AppComponent.LangSubject.subscribe(this.Observer);
     }
   }
-
+  override ObserverGetter(): Observer<Lang>
+  {
+    return {
+      "next": (lang: Lang) => {
+        this.Lang = this.LangGetter();
+        this.LangArr = this.LangEntryGetter(this.ComponentName);
+        this.butts = this.GetButtonArray();
+      },
+      "error": (error: Error) => {
+        console.error(error);
+      },
+      "complete": () => {
+      }
+    }
+  }
   private GetButtonArray()
   {
     return [
@@ -109,8 +107,7 @@ export class UiComponent extends LangUtilities
   // sets global language in LangService
   public setGlobalLang()
   {
-    console.log(this.Lang);
-    this.langService.SetLang(this.Lang);
+    AppComponent.setLang();
   }
 }
 

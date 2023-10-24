@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
 // rxjs
-import {Observer, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 // interfaces, types, etc
 import { LangEntry } from '../interfaces/lang-entry';
 import {Lang} from "../interfaces/lang";
+import {AppComponent} from "../app.component";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class LangService {
-  static readonly LangSubject: Subject<Lang> = new Subject();
   protected langMap: Map <string, LangEntry>;
 
   public constructor()
   {
     this.langMap = new Map();
-  }
-
-  public SetLang(lang: Lang)
-  {
-      LangService.LangSubject.next(lang);
   }
 
   protected langMapGetter()
