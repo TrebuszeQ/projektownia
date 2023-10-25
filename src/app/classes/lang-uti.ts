@@ -1,3 +1,4 @@
+import {ActivatedRoute, Data} from "@angular/router";
 // types, interfaces
 import { Lang } from '../interfaces/lang';
 // services
@@ -13,13 +14,17 @@ export class LangUtilities {
   protected LangArr;
   protected Observer: Observer<Lang>;
   protected Subscription: Subscription;
-  constructor(protected ComponentName: string,protected langService: LangService)
+  constructor(protected route: ActivatedRoute, protected ComponentName: string,protected langService: LangService)
   {
     this.Lang = this.LangGetter();
     this.LangArr = this.LangEntryGetter(this.ComponentName);
     this.Observer = this.ObserverGetter();
     this.Subscription = AppComponent.LangSubject.subscribe(this.Observer);
     // console.log(ComponentName, this.Lang);
+    route.data.subscribe((data: Data) => {
+      let arr = Object.values(data);
+      if((arr[0] === "pl" || arr[0] === "en") && arr[0] != this.Lang) AppComponent.setLang();
+  })
   }
 
   protected ObserverGetter(): Observer<Lang> {

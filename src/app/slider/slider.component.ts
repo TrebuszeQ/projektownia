@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 // services
 import {LangService} from "../services/lang.service";
 import { SliderService } from '../services/slider.service';
 // interfaces, types
 import { Slides } from '../interfaces/slides';
 import { SliderMsg } from '../types/slider-msg';
+import { LangUtilities } from '../classes/lang-uti';
 // fa
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight, faCaretSquareRight } from '@fortawesome/free-solid-svg-icons';
-import { LangUtilities } from '../classes/lang-uti';
+
+
 
 
 
@@ -27,9 +30,9 @@ implements OnInit
   public slides: Slides[] = SliderService.GetSlides();
   private on: boolean = true;
 
-  constructor(private sliderService: SliderService, langService: LangService)
+  constructor(route: ActivatedRoute, private sliderService: SliderService, langService: LangService)
   {
-    super("slider", langService);
+    super(route, "slider", langService);
   };
 
 

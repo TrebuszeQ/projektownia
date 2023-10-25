@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 // classes
 import { LangUtilities } from '../classes/lang-uti';
 // services
@@ -12,9 +13,9 @@ import {LangService} from "../services/lang.service";
 })
 export class AboutComponent extends LangUtilities
 {
-  constructor(langService: LangService)
+  constructor(route: ActivatedRoute, langService: LangService)
   {
-    super("about", langService);
+    super(route,"about", langService);
     // if(this.langArr === null) this.setLangArr(this.lang);
   }
 }

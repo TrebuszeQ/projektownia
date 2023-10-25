@@ -11,6 +11,7 @@ import { SliderComponent } from './slider/slider.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NgOptimizedImage } from "@angular/common";
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 
@@ -21,6 +22,7 @@ import { NgOptimizedImage } from "@angular/common";
     SliderComponent,
     HomeComponent,
     AboutComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,

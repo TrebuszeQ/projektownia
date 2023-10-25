@@ -1,19 +1,21 @@
 /* common */
 .uiButt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    transition: 0.15s;
-    color: rgb(36, 40, 61);
-    font-weight: 550;
-  cursor: pointer;
+  border-top: 1px solid #e3dfdf;
+  border-bottom: 1px solid #e3dfdf;
+  border-left: none;
+  border-right: none;
 }
 
 .uiButt:hover {
     color: aquamarine;
     background-color: black;
+  border: 2px solid #e3dfdf;
+}
+
+#menuButt, #langButt
+{
+  border-top: none;
+  border-bottom: none;
 }
 
 /* uiW */
@@ -38,6 +40,7 @@
   width: 100vw;
   height: 5vh;
   will-change: transform;
+  border-bottom: 2px solid #e3dfdf;
 }
 
 #langButt {
@@ -60,4 +63,5 @@
   height: 95vh;
   will-change: transform;
   transition: ease-in-out 0.25s;
+  border-right: 2px solid #e3dfdf;
 }

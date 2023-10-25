@@ -1,17 +1,20 @@
+// ng
+import { Component } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import { LangUtilities } from '../classes/lang-uti';
+import { Lang } from "../interfaces/lang";
+import {Butts} from "./interfaces/butts";
 // rxjs
 import { Observer } from "rxjs";
 //  components
-import { Component } from '@angular/core';
+import {AppComponent} from "../app.component";
 // interfaces
 // fontawesome
 import { faHome, faFlag } from '@fortawesome/free-solid-svg-icons';
 // services
 import { LangService } from '../services/lang.service';
-import { LangUtilities } from '../classes/lang-uti';
-import { Lang } from "../interfaces/lang";
-import {Butts} from "./interfaces/butts";
-import {ActivatedRoute} from "@angular/router";
-import {AppComponent} from "../app.component";
+
+
 
 
 @Component({
@@ -26,9 +29,9 @@ export class UiComponent extends LangUtilities
   menuAppeared: boolean = true;
   butts: Butts[];
   override Subscription;
-  constructor(langService: LangService)
+  constructor(route: ActivatedRoute, langService: LangService)
   {
-    super("ui", langService)
+    super(route, "ui", langService)
     {
       this.butts = this.GetButtonArray();
       this.Subscription = AppComponent.LangSubject.subscribe(this.Observer);

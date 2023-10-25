@@ -13,7 +13,6 @@
     background-color: rgb(240, 240, 240);
 }
 
-
 .altColor {
     color: white;
     background-color: #e3dfdf;
@@ -57,14 +56,21 @@ body {
     box-sizing: border-box;
 }
 
-.uiButt, .slidButt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    transition: 0.15s;
-    font-weight: 550;
+button
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.15s;
+  font-weight: 550;
+  cursor: pointer;
+}
+
+.regularWidth
+{
+  width: 86vw;
+  max-width: 86vw;
+  margin: 0 7vw;
 }
 
 .uiButt:hover, .slidButt:hover {
