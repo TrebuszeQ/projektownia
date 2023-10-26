@@ -1,17 +1,3 @@
-/* common */
-.uiButt {
-  border-top: 1px solid #e3dfdf;
-  border-bottom: 1px solid #e3dfdf;
-  border-left: none;
-  border-right: none;
-}
-
-.uiButt:hover {
-    color: aquamarine;
-    background-color: black;
-  border: 2px solid #e3dfdf;
-}
-
 #menuButt, #langButt
 {
   border-top: none;

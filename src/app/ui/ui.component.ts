@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { LangUtilities } from '../classes/lang-uti';
 import { Lang } from "../interfaces/lang";
-import {Butts} from "./interfaces/butts";
+import {Butts} from "../interfaces/butts";
 // rxjs
 import { Observer } from "rxjs";
 //  components

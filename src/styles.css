@@ -61,9 +61,23 @@ button
   display: flex;
   justify-content: center;
   align-items: center;
+
+  box-sizing: border-box;
+  border-top: 1px solid #e3dfdf;
+  border-bottom: 1px solid #e3dfdf;
+  border-left: none;
+  border-right: none;
+
   transition: 0.15s;
   font-weight: 550;
   cursor: pointer;
+}
+
+button:hover
+{
+  border: 2px solid #e3dfdf;
+  color: aquamarine;
+  background-color: black;
 }
 
 .regularWidth
@@ -78,9 +92,20 @@ button
     background-color: black;
 }
 
+@font-face {
+  font-family: "Playpen Sans";
+  src: local('Playpen Sans'), url("src/assets/fonts/playpensans/static/PlaypenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
 .fontStyleMain
 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "PlaypenSans", serif;
+  orphans: initial;
+  widows: initial;
+  font-size: 1.2em;
+  color: rgb(36, 40, 61);
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif;*/
 }
 
 .noOverflow
@@ -103,9 +128,5 @@ button
 .pB
 {
     margin: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-indent: 10%;
-    orphans: initial;
-    widows: initial;
-    color: rgb(36, 40, 61);
 }
