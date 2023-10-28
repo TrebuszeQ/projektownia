@@ -30,25 +30,25 @@ export class GalleryImage
 
   public getDescription()
   {
-    return this.Description;
+    return this.Description != null ? this.Description : "";
   }
 
   public getTags()
   {
-    return this.Tags;
+    return this.Tags != null ? this.Tags : [];
   }
 
   public removeTag(rmTag: string)
   {
-    if(this.Tags != null)
+    try
     {
-      let temp = this.Tags;
-      let counter = 0;
-      for (let tag of temp)
-      {
-        counter++;
-        if(temp) // here
-      }
+      let index = Object.keys(this.Tags!).findIndex(key => key == rmTag);
+      this.Tags = this.Tags!.slice(0, index).concat(this.Tags!.slice(index));
     }
+    catch (e)
+    {
+      return false;
+    }
+    return true;
   }
 }
