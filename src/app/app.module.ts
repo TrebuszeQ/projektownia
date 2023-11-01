@@ -11,6 +11,8 @@ import { SliderComponent } from './slider/slider.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NgOptimizedImage } from "@angular/common";
+import { GalleriesComponent } from './galleries/galleries.component';
+import { GalleryImageComponent } from './gallery-image/gallery-image.component';
 import { GalleryComponent } from './gallery/gallery.component';
 
 
@@ -22,6 +24,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     SliderComponent,
     HomeComponent,
     AboutComponent,
+    GalleriesComponent,
+    GalleryImageComponent,
     GalleryComponent,
   ],
   imports: [

@@ -1,0 +1,19 @@
+#galleryMenuW
+{
+  display: inline-flex;
+  width: 100vw;
+  height: 8vh;
+  margin-top: 5vh;
+}
+
+#galleryW
+{
+  display: grid;
+  grid-template-columns: repeat(4, 20vw);
+  grid-column-gap: 2vw;
+  grid-template-rows: repeat(4, 12vw);
+  grid-row-gap: 2vw;
+  justify-content: center;
+  justify-items: center;
+  height: calc(100vh - 8vh - 5vh);
+}
