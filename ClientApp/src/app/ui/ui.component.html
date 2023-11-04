@@ -1,0 +1,16 @@
+<div id="uiTopW" class="mainColor borderBox noOverflow fixedItem altColor noPadding l10">
+    <button id="menuButt" class="" (click)="menuAppear()">
+        <fa-icon [icon]="faHome"></fa-icon>
+    </button>
+    <button id="langButt" class="" (click)="setGlobalLang()">
+        <fa-icon [icon]="faFlag"></fa-icon>
+    </button>
+</div>
+
+<div id="uiLeftW" class="mainColor borderBox noOverflow fixedItem altColor noPadding l10">
+    <button *ngFor="let butt of butts; index as i"  type="button" title="{{butt.name}}"
+    class="leftMenuButt fontStyleMain" id="leftMenuButt{{i}}"
+            (click)="onClickRedirect(butt.url)">
+        {{butt.name}}
+    </button>
+</div>

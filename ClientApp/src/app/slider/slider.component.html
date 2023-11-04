@@ -1,0 +1,32 @@
+<div id="sliderW" class="noOverflow relativeItem altColor borderBox zeroPadding l9">
+    <img *ngFor="let slide of slides; let i" [ngSrc]="slide.url" [priority]="true"
+         [fill]="true"
+         alt="Interior design image {{i}}." class="{{slide.cssClass}}"
+         id="{{slide.cssId}}">
+</div>
+
+<div id="slidButtW" class="borderBox mainColor relativeItem borderBox altColor l8">
+    <button class="relativeItem borderBox slidButt l9" id="slidButtL" (click)="CallToMsgSlider('sleep')">
+        <fa-icon [icon]="arrowL"></fa-icon>
+    </button>
+    <button class="relativeItem borderBox slidButt l9" id="onButton"
+    (click)="TurnOffSlider()">
+        <fa-icon [icon]="play"></fa-icon>
+    </button>
+    <button class="relativeItem borderBox slidButt l9" id="speedButton" (mouseenter)="controlSpeedButton(false)">
+        <p>{{LangArr![0]}}</p>
+    </button>
+    <input type="range" min="3000" max="9000" value="4500" step="1500" list="markers" class="aboluteItem borderBox speedSlider l8" id="speedSlider"
+    (input)="updateLocalSpeed($event)"
+    (mouseleave)="controlSpeedButton(true)">
+    <datalist id="markers" class="aboluteItem borderBox speedSlider l7">
+        <option value="3000"></option>
+        <option value="4500"></option>
+        <option value="6000"></option>
+        <option value="7500"></option>
+        <option value="9000"></option>
+    </datalist>
+    <button class="slidButt l9" id="slidButtR" (click)="CallToMsgSlider('sleep')">
+        <fa-icon [icon]="arrowR"></fa-icon>
+    </button>
+</div>

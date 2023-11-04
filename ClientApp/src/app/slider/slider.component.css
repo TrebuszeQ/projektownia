@@ -1,0 +1,85 @@
+#sliderW {
+    display: grid;
+    grid-template-columns: repeat(3, 100vw);
+    grid-template-rows: 70vh;
+    align-items: end;
+    align-content: center;
+    margin-top: 5vh;
+    width: 300vw;
+    will-change: transform;
+}
+
+#slidButtW {
+    display: grid;
+    grid-template-columns: repeat(5, 20vw);
+    grid-template-rows: 5vh;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    width: 100%;
+}
+
+.sliderImg {
+  object-fit: cover;
+}
+
+.slidButt {
+    height: 100%;
+    width: 100%;
+}
+
+#slidButtR {
+    grid-column: 1/2;
+    grid-row: 1;
+}
+
+#slidButtL {
+    grid-column: 5/6;
+    grid-row: 1;
+}
+
+#onButton {
+    grid-column: 2/3
+}
+
+#speedButton {
+    grid-column: 4/5;
+}
+
+.speedSlider {
+    grid-column: 4/5;
+    position: absolute;
+    width: 80%;
+    transition: 0.15s;
+    color: rgb(36, 40, 61);
+    background-color: transparent;
+}
+
+.speedSlider:hover {
+    color: aquamarine;
+    background-color: black;
+}
+
+#speedSlider {
+    appearance: auto;
+    height: 100%;
+}
+
+datalist {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    box-sizing: border-box;
+    padding: 0 10% 0 10%;
+    writing-mode: vertical-lr;
+    height: 80%;
+
+}
+
+datalist > option {
+    color: white;
+}

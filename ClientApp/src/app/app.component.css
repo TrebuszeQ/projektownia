@@ -1,0 +1,7 @@
+#pageW
+{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    overflow-x: hidden;
+}
