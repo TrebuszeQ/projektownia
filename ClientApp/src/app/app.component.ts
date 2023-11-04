@@ -8,7 +8,7 @@ import { Subject } from "rxjs";
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'Projektownia';
+  title = 'app';
   private static lang: Lang = "pl";
   static readonly LangSubject: Subject<Lang> = new Subject();
   constructor() {

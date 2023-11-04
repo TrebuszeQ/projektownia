@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NgOptimizedImage } from "@angular/common";
 import { GalleriesComponent } from './galleries/galleries.component';
-import { GalleryImageComponent } from './gallery-image/gallery-image.component';
+import { GalleryImageComponent } from './gallery-image/gallery-image.component'
 import { GalleryComponent } from './gallery/gallery.component';
 // template
 import { AppComponent } from './app.component';
