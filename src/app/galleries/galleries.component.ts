@@ -5,7 +5,7 @@ import {LangUtilities} from "../classes/lang-uti";
 // services
 import {LangService} from "../services/lang.service";
 // components
-import { GalleryImageComponent } from "../gallery-image/gallery-image.component";
+import { GalleryImage } from "../classes/gallery-image";
 
 @Component({
   selector: 'app-gallery',
@@ -16,13 +16,14 @@ import { GalleryImageComponent } from "../gallery-image/gallery-image.component"
 export class GalleriesComponent extends LangUtilities
 {
   butts: Map<string, object> = new Map();
-  imgMap: Map<string, GalleryImageComponent> = new Map();
-  galleries: Map<string, GalleryImageComponent[]> = new Map();
+  imgMap: Map<string, GalleryImage> = new Map();
+  galleries: Map<string, GalleryImage[]> = new Map();
 
   constructor(route: ActivatedRoute, langService: LangService)
   {
     super(route, "gallery", langService);
   }
+  
   private setButtMap()
   {
     let butts: Map<string, object> = new Map();

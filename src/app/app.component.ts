@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 // interfaces
 import { Lang } from "./interfaces/lang";
-import {LangService} from "./services/lang.service";
 import {Subject} from "rxjs";
 
 
