@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 // classess, interfaces
 import { GalleryImage } from '../classes/gallery-image';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Config } from '@fortawesome/fontawesome-svg-core';
+import { retry, Observable, throwError, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,52 +17,43 @@ export class GalleriesService {
     this.Galleries.set("gallery1", this.generateGallery("gallery1") || []);
     this.BaseUrl = "placeholderurl";
   }
-
-  // private prepareRequest(galleryKey: string) {
-  //   const url = this.BaseUrl + galleryKey;
-  //   const headers = new Headers();
-  //   headers.append("content-type", "image/jpeg");
-  //   const options: RequestInit = {
-  //     method: "GET",
-  //     headers: headers,
-  //     mode: "cors",
-  //     cache: "default",
-  //   };
-  //   return new Request(url, options);
-  // }
-
-  // private fetchGalleryNames(galleryKey: string) {
-  //   const url = this.BaseUrl + galleryKey;
-  //   const headers = new Headers();
-  //   headers.append("content-type", "text/plain");
-    
-  // }
-
-
-  private getGalleryNames(galleryKey: string) {
-    let resBody = null;
-    this.http.get<Config>(this.BaseUrl + galleryKey, {
-      params: {},
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Cache-Control": "no-cache",
-        "X-Debug-Level": "verbose",
-      },
-      responseType: "json",
-      withCredentials: false,
-      observe: "response"
-    }).subscribe(response => {
-      resBody = response.body;
-      console.log("Response status:", response.status);
-      console.log("Body:", response.body);
-    });
-    
-    return resBody;
+  
+  public getGalleryNames(galleryKey: string) {
+    return this.http.get<Observable<JSON>>(this.BaseUrl + galleryKey,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Cache-Control": "no-cache",
+          "X-Debug-Level": "verbose"
+        },
+        responseType: "json",
+        withCredentials: false,
+        observe: "response"
+      })
+    .pipe(
+      catchError((this.handleError))
+    )
+    .subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
   }
 
-  private getGalleryImages() {
-    
+  public getGalleryNamesFake(galleryKey: string) {
+  
+  }
+  
+  private handleError(error: HttpErrorResponse) {
+    if(error.error instanceof ErrorEvent) {
+      console.error("An error occured: ", error.error.message);
+    } 
+    else {
+      console.error(`Server returned code ${error.error.message}`);
+    }
+
+    return throwError(() => "Server request returned error.");
   }
 
   private generateGallery(galleryKey: string) {
