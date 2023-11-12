@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Type} from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 // classess, interfaces
-import { GalleryImage } from '../classes/gallery-image';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Config } from '@fortawesome/fontawesome-svg-core';
+import { GalleryData } from "./gallery-data.ts";
+// rxjs
+
 import { retry, Observable, throwError, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GalleriesService {
-  private readonly Galleries: Map<string, GalleryImage[]> = new Map();
-  private readonly BaseUrl;
+  private readonly gallarySources: string[];
+  // private readonly galleryNames = await this.getGalleryNames();
+  private readonly galleryNames = this.getGalleryNamesFake();
   // in the future it can fetch galleries from db
   constructor(private http: HttpClient)
   {
-    this.Galleries.set("gallery1", this.generateGallery("gallery1") || []);
-    this.BaseUrl = "placeholderurl";
+    this.gallarySources = ["..."];
   }
-  
-  public getGalleryNames(galleryKey: string) {
-    return this.http.get<Observable<JSON>>(this.BaseUrl + galleryKey,
+
+  private async getJsonRequestSubscription(source: string) {
+    return this.http.get<Type<any>>(this.gallarySources[source],
       {
         headers: {
           "Content-Type": "application/json",
@@ -30,25 +31,31 @@ export class GalleriesService {
         responseType: "json",
         withCredentials: false,
         observe: "response"
-      })
-    .pipe(
-      catchError((this.handleError))
-    )
-    .subscribe(
-      (data) => {
-        console.log(data);
-      }
+      }).pipe(
+        retry(3),
+        catchError(this.handleRequestError)
     );
   }
 
-  public getGalleryNamesFake(galleryKey: string) {
-  
+  private async getJsonData(source: string) {
+    (await this.getJsonRequestSubscription(source)).subscribe(data => {
+      return data.body;
+    })
   }
-  
-  private handleError(error: HttpErrorResponse) {
+
+  public async getGalleryNames(source: string) {
+    return this.getJsonData(source);
+  }
+
+  // fake
+  public getGalleryNamesFake() {
+    return ["FlatX", "FlatY", "HomeX"];
+  }
+
+  private handleRequestError(error: HttpErrorResponse) {
     if(error.error instanceof ErrorEvent) {
       console.error("An error occured: ", error.error.message);
-    } 
+    }
     else {
       console.error(`Server returned code ${error.error.message}`);
     }
@@ -56,17 +63,9 @@ export class GalleriesService {
     return throwError(() => "Server request returned error.");
   }
 
-  private generateGallery(galleryKey: string) {
-    let arr = [];
-    if (this.Galleries.has(galleryKey))
-    {
-      for(let i = 0; i < 20; i++) {
-        let src = "src/assets/images/gallery/placeholder/laura-lauch-o_vJVPYz4jI-unsplash.jpg";
-        arr.push(new GalleryImage(`${galleryKey}placeholderImage${i}`, `${galleryKey}Image${i}`, src, "Interior design portfolio photography.", null, null));
-      }
-    }
-    else return null;
-    return arr;
+  private async getGalleryByName(source) {
+    let data: GalleryData = (await this.getJsonData(source) as GalleryData);
+    
   }
 
 }
