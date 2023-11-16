@@ -2,6 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
 
+## ToDo
+every component should has it's own this.LangArr </br>
+http gallery names fetching from db </br>
+http gallery image links fetching from db </br>
+gallery component </br>
+gallery-menu component </br>
+more functional less state </br>
+reusability </br>
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
