@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 // RxJS
 import { Subject } from 'rxjs';
 // interfaces, types
-import { Slides } from '../interfaces/slides';
 import { SliderMsg } from '../types/slider-msg';
 
 @Injectable({
@@ -84,10 +83,10 @@ export class SliderService
       });
   }
 
-
   // initiates worker
   public spawnSliderWorker() {
     if (typeof Worker !== "undefined") {
+
       const worker = new Worker(new URL("src/app/workers/slider.worker.ts",
       import.meta.url));
       this.worker = worker;
@@ -96,7 +95,6 @@ export class SliderService
       };
     }
     else console.error("Web workers are not supported in this environment. Slider won't be automatic.");
-
   }
 
 

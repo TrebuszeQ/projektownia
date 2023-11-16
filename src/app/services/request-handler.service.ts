@@ -17,7 +17,6 @@ export class RequestHandlerService {
            "Cache-Control": "no-cache",
            "X-Debug-Level": "verbose",
        },
-         responseType: "json",
          withCredentials: false,
          observe: "response"
      }).pipe(

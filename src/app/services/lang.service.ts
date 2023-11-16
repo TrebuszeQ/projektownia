@@ -90,6 +90,13 @@ export class LangService {
         contentPl: [],
         contentEn: []
       });
+
+    this.langMap.set("galMenu",
+      {
+        compName: "galMenu",
+        contentPl: [],
+        contentEn: [],
+      });
   }
 
   public fetchLangEntry(key: string)

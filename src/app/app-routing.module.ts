@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './slider/slider.component';
 import {AboutComponent} from "./about/about.component";
-import {GalleriesComponent} from "./galleries/galleries.component";
+import {GalleryMenuComponent} from "./gallery-menu/gallery-menu.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "glowna", pathMatch: "full" },
@@ -19,8 +19,7 @@ const routes: Routes = [
   { path: "autor", component: AboutComponent, title: "Autor", data: {lang: "pl" } },
   { path: "about", component: AboutComponent, title:"About", data: {lang: "en"} },
   { path: "o_mnie", component: AboutComponent, title:"O mnie", data: {lang: "pl"} },
-  { path: "galeria", component: GalleriesComponent, title: "Galeria", data: {lang: "pl"} },
-  { path: "gallery", component: GalleriesComponent, title: "Gallery", data: {lang: "en"} }
+  { path: "gal-menu", component: GalleryMenuComponent, title: "Menu galerii", data: {lang: "pl"} }
 ];
 
 @NgModule({

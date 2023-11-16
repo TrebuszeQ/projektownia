@@ -13,10 +13,10 @@ export class GalleryNameService extends RequestHandlerService {
   constructor(http: HttpClient) {
     super(http);
     //not implemented
-    this.Source = "";
+    this.Source = "https://httpbin.org/get";
   }
 
   public async getGalleryNames() {
-     return (await this.getSubscription(this.Source)).subscribe(value => value.body);
+    return (await this.getSubscription(this.Source)).subscribe(value => value);
   }
 }
